@@ -20,7 +20,9 @@ export interface GameState {
   pendingChoiceEffects: Choice["effects"] | null;
   pendingChoiceNext: string | null;
   pendingChoiceFeedback: string | null;
+  isMuted: boolean;
 
+  toggleMute: () => void;
   startScope: (scope: "A" | "B" | "C") => void;
   nextScene: () => void;
   submitChoice: (choice: Choice, sceneId: string) => void;
@@ -52,7 +54,9 @@ export const useGameStore = create<GameState>((set, get) => ({
   pendingChoiceEffects: null,
   pendingChoiceNext: null,
   pendingChoiceFeedback: null,
+  isMuted: false,
 
+  toggleMute: () => set((state) => ({ isMuted: !state.isMuted })),
   startScope: (scope) => {
     const freshDecisions: Record<string, string> = {
       concept1: "No tomado",
