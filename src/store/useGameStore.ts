@@ -194,6 +194,20 @@ export const useGameStore = create<GameState>((set, get) => ({
     if (pendingChoiceNext) {
       if (pendingChoiceNext === "game_ending_eval") {
         set({ isEndingOpen: true });
+      } else if (pendingChoiceNext === "day1_recap_trigger") {
+        set({ isEndingOpen: true });
+      } else if (pendingChoiceNext === "day2_completed_marker") {
+        set({ isDayRecapOpen: true });
+      } else if (pendingChoiceNext === "day3_recap_trigger") {
+        if (get().currentScope === "B") {
+          set({ isEndingOpen: true });
+        } else {
+          set({ isDayRecapOpen: true });
+        }
+      } else if (pendingChoiceNext === "day4_completed_marker") {
+        set({ isDayRecapOpen: true });
+      } else if (pendingChoiceNext === "day5_completed_marker") {
+        set({ isEndingOpen: true });
       } else {
         const nextIdx = activeDayScenes.findIndex(s => s.id === pendingChoiceNext);
         if (nextIdx !== -1) {
