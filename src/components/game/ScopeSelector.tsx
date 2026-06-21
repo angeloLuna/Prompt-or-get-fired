@@ -31,17 +31,7 @@ export const ScopeSelector: React.FC = () => {
         
         {/* Selector Header */}
         <div className="text-center mb-10">
-          <div className="relative w-28 h-28 mx-auto mb-6 flex items-center justify-center">
-            {/* Pulsing glow background */}
-            <div className="absolute inset-0 bg-[#fcd34d]/10 blur-xl rounded-full animate-pulse" />
-            <svg className="w-full h-full relative filter drop-shadow-[0_0_15px_rgba(252,211,77,0.3)]" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="44" fill="rgba(22, 30, 49, 0.6)" stroke="#fcd34d" strokeWidth="2.5" />
-              <path d="M 32 32 C 48 38, 62 48, 68 68 C 55 64, 42 52, 32 32 Z" fill="#fcd34d" />
-              <path d="M 68 68 L 76 76" stroke="#fcd34d" strokeWidth="4" strokeLinecap="round" />
-            </svg>
-          </div>
-
-          <h1 className="font-['Outfit'] font-extrabold text-4xl md:text-5xl uppercase tracking-tighter text-[#fcd34d] mb-3 filter drop-shadow-[0_0_10px_rgba(252,211,77,0.25)]">
+          <h1 className="font-['Outfit'] font-extrabold text-3xl md:text-4xl uppercase tracking-tighter text-[#fcd34d] mb-3 filter drop-shadow-[0_0_10px_rgba(252,211,77,0.25)]">
             Prompt or Get Fired
           </h1>
           <p className="font-['Inter'] text-sm md:text-base text-[#64748b] max-w-lg mx-auto">

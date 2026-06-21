@@ -2,6 +2,7 @@ import React from "react";
 import { useGameStore } from "../../store/useGameStore";
 import { Scene, Choice } from "../../game/data/scenes";
 import { motion } from "framer-motion";
+import { playSfx } from "../../utils/audio";
 
 interface ChoiceOverlayProps {
   scene: Scene;
@@ -11,6 +12,11 @@ export const ChoiceOverlay: React.FC<ChoiceOverlayProps> = ({ scene }) => {
   const submitChoice = useGameStore((state) => state.submitChoice);
 
   if (!scene.choices) return null;
+
+  const handleChoiceClick = (choice: Choice) => {
+    playSfx("confirm");
+    submitChoice(choice, scene.id);
+  };
 
   return (
     <motion.div 
@@ -22,7 +28,8 @@ export const ChoiceOverlay: React.FC<ChoiceOverlayProps> = ({ scene }) => {
         return (
           <motion.button
             key={idx}
-            onClick={() => submitChoice(choice, scene.id)}
+            onClick={() => handleChoiceClick(choice)}
+            onMouseEnter={() => playSfx("hover")}
             whileHover={{ 
               x: [0, -2, 2, -1, 1, 0],
               transition: { duration: 0.25 }

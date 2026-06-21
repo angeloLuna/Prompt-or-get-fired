@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGameStore } from "../../store/useGameStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, XCircle } from "lucide-react";
+import { playSfx } from "../../utils/audio";
 
 export const FeedbackOverlay: React.FC = () => {
   const { pendingChoiceEffects, pendingChoiceFeedback, closeFeedback } = useGameStore();
 
-  if (!pendingChoiceFeedback) return null;
-
   const isCorrect = pendingChoiceEffects && (pendingChoiceEffects.skill || 0) >= 10;
+
+  // Play SFX when feedback appears
+  useEffect(() => {
+    if (!pendingChoiceFeedback) return;
+    playSfx(isCorrect ? "success" : "failure");
+  }, [pendingChoiceFeedback]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (!pendingChoiceFeedback) return null;
 
   const renderEffectBadges = () => {
     if (!pendingChoiceEffects) return null;
@@ -89,6 +96,7 @@ export const FeedbackOverlay: React.FC = () => {
           <button
             id="btn-close-feedback"
             onClick={closeFeedback}
+            onMouseEnter={() => playSfx("hover")}
             className="w-full font-['Outfit'] font-extrabold text-sm tracking-wider uppercase py-3 rounded-lg bg-white text-[#0f131c] transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_4px_12px_rgba(255,255,255,0.2)] cursor-pointer"
           >
             Continuar

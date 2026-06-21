@@ -5,6 +5,7 @@ import { promptRubrics } from "../../game/data/rubrics";
 import { PromptRubricTooltip } from "./PromptRubricTooltip";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, HelpCircle, Check, CircleAlert, Sparkles, Terminal } from "lucide-react";
+import { playSfx } from "../../utils/audio";
 
 interface PromptChallengeProps {
   scene: Scene;
@@ -23,6 +24,14 @@ export const PromptChallenge: React.FC<PromptChallengeProps> = ({ scene }) => {
   useEffect(() => {
     setInputText("");
   }, [scene.id]);
+
+  // Play SFX when evaluation result comes in
+  useEffect(() => {
+    if (!result) return;
+    if (result.status === "success") playSfx("success");
+    else if (result.status === "partial") playSfx("partial");
+    else playSfx("failure");
+  }, [result]);
 
   if (!rubric) return null;
 
@@ -143,6 +152,7 @@ export const PromptChallenge: React.FC<PromptChallengeProps> = ({ scene }) => {
               <motion.button
                 id="btn-submit-prompt"
                 onClick={handleEvaluate}
+                onMouseEnter={() => playSfx("hover")}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 className="w-full flex items-center justify-center gap-2 font-['Outfit'] font-extrabold text-sm tracking-wider uppercase py-3 rounded-lg bg-[#3b82f6] text-white hover:shadow-[0_4px_15px_rgba(59,130,246,0.3)] transition-all duration-200 cursor-pointer"
@@ -195,6 +205,7 @@ export const PromptChallenge: React.FC<PromptChallengeProps> = ({ scene }) => {
                 <button
                   id="btn-finish-challenge"
                   onClick={() => advanceFromPrompt(result.effects)}
+                  onMouseEnter={() => playSfx("hover")}
                   className="w-full font-['Outfit'] font-extrabold text-sm tracking-wider uppercase py-3 rounded-lg bg-white text-[#0f131c] transition-all duration-200 hover:scale-[1.01] cursor-pointer text-center"
                 >
                   Continuar

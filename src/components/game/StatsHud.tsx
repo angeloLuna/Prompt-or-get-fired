@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useGameStore } from "../../store/useGameStore";
-import { Shield, Brain, UserCheck, Flame } from "lucide-react";
+import { Shield, Brain, UserCheck, Flame, Volume2, VolumeX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface StatDelta {
@@ -10,9 +10,10 @@ interface StatDelta {
 }
 
 export const StatsHud: React.FC = () => {
-  const { reputation, skill, risk, currentDay, currentScope } = useGameStore();
+  const { reputation, skill, risk, currentDay, currentScope, isMuted, toggleMute } = useGameStore();
 
   const [deltas, setDeltas] = useState<StatDelta[]>([]);
+
 
   const prevRep = useRef(reputation);
   const prevSkill = useRef(skill);
@@ -108,19 +109,34 @@ export const StatsHud: React.FC = () => {
       <div className="flex flex-col gap-4">
         
         {/* Branding header */}
-        <div className="flex items-center gap-3 pb-4 border-b border-white/5">
-          <svg className="w-8 h-8 filter drop-shadow-[0_0_8px_rgba(252,211,77,0.25)]" viewBox="0 0 100 100">
-            <path d="M 32 32 C 48 38, 62 48, 68 68 C 55 64, 42 52, 32 32 Z" fill="#fcd34d" />
-          </svg>
-          <div>
-            <div className="font-['Outfit'] font-extrabold text-sm tracking-wider">
-              BANANO<span className="text-[#fcd34d]">CORP</span>
-            </div>
-            <div className="font-mono text-[9px] text-[#64748b] tracking-widest uppercase">
-              Mainframe v1.2
+        <div className="flex items-center justify-between pb-4 border-b border-white/5">
+          <div className="flex items-center gap-3">
+            <svg className="w-8 h-8 filter drop-shadow-[0_0_8px_rgba(252,211,77,0.25)]" viewBox="0 0 100 100">
+              <path d="M 32 32 C 48 38, 62 48, 68 68 C 55 64, 42 52, 32 32 Z" fill="#fcd34d" />
+            </svg>
+            <div>
+              <div className="font-['Outfit'] font-extrabold text-sm tracking-wider">
+                BANANO<span className="text-[#fcd34d]">CORP</span>
+              </div>
+              <div className="font-mono text-[9px] text-[#64748b] tracking-widest uppercase">
+                Mainframe v1.2
+              </div>
             </div>
           </div>
+          {/* Mute button */}
+          <button
+            onClick={toggleMute}
+            className="p-1.5 rounded-lg border border-white/5 hover:border-white/10 hover:bg-white/5 transition-all text-[#64748b] hover:text-white cursor-pointer"
+            title={isMuted ? "Activar sonido" : "Silenciar sonido"}
+          >
+            {isMuted ? (
+              <VolumeX className="w-4 h-4 text-[#f43f5e]" />
+            ) : (
+              <Volume2 className="w-4 h-4 text-[#10b981]" />
+            )}
+          </button>
         </div>
+
 
         {/* User Role Card */}
         <div className="bg-white/[0.01] border border-white/5 rounded-lg p-3">

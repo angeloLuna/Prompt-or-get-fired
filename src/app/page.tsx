@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { useGameStore } from "../store/useGameStore";
 import { ScopeSelector } from "../components/game/ScopeSelector";
 import { GameLayout } from "../components/game/GameLayout";
+import { SplashScreen } from "../components/game/SplashScreen";
 
 export default function Home() {
   const currentScope = useGameStore((state) => state.currentScope);
+  const [showSplash, setShowSplash] = useState(true);
 
   return (
     <div className="flex flex-col min-h-screen relative w-full items-center justify-center overflow-x-hidden bg-[#090d16]">
@@ -28,6 +31,12 @@ export default function Home() {
       ) : (
         <GameLayout />
       )}
+
+      {/* Splash screen — sits above everything via fixed + z-[9999] */}
+      {showSplash && (
+        <SplashScreen onDone={() => setShowSplash(false)} displayMs={1600} />
+      )}
     </div>
   );
 }
+

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useGameStore } from "../../store/useGameStore";
 import { Scene } from "../../game/data/scenes";
 import { ChevronRight } from "lucide-react";
+import { playSfx } from "../../utils/audio";
 
 interface DialogueBoxProps {
   scene: Scene;
@@ -37,6 +38,12 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
     setIsTyping(true);
     textRef.current = "";
 
+    // Play whoosh transition and question cue when a new scene starts
+    playSfx("transition");
+    if (scene.type === "choice" || scene.type === "prompt") {
+      playSfx("question");
+    }
+
     const targetText = scene.dialogue;
     let charIndex = 0;
 
@@ -44,6 +51,12 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
       if (charIndex < targetText.length) {
         textRef.current += targetText[charIndex];
         setDisplayedText(textRef.current);
+        
+        // Play soft gibberish voice SFX on typewriter crawl
+        if (charIndex % 3 === 0 && targetText[charIndex].trim() !== "") {
+          playSfx("typewriter", scene.character);
+        }
+        
         charIndex++;
       } else {
         setIsTyping(false);
@@ -54,7 +67,8 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [scene.dialogue]);
+  }, [scene.id, scene.dialogue, scene.character, scene.type]);
+
 
   const handleBoxClick = () => {
     if (isTyping) {

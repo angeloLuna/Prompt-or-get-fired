@@ -21,6 +21,8 @@ export interface GameState {
   pendingChoiceNext: string | null;
   pendingChoiceFeedback: string | null;
 
+  isMuted: boolean;
+
   startScope: (scope: "A" | "B" | "C") => void;
   nextScene: () => void;
   submitChoice: (choice: Choice, sceneId: string) => void;
@@ -31,6 +33,7 @@ export interface GameState {
   restartCurrentScope: () => void;
   returnToSelector: () => void;
   continueToNextScope: () => void;
+  toggleMute: () => void;
 }
 
 const clamp = (val: number) => Math.min(100, Math.max(0, val));
@@ -52,6 +55,9 @@ export const useGameStore = create<GameState>((set, get) => ({
   pendingChoiceEffects: null,
   pendingChoiceNext: null,
   pendingChoiceFeedback: null,
+
+  isMuted: typeof window !== "undefined" ? localStorage.getItem("game_audio_muted") === "true" : false,
+
 
   startScope: (scope) => {
     const freshDecisions: Record<string, string> = {
@@ -362,5 +368,14 @@ export const useGameStore = create<GameState>((set, get) => ({
       decisions,
       promptResults
     });
+  },
+
+  toggleMute: () => {
+    const nextMute = !get().isMuted;
+    if (typeof window !== "undefined") {
+      localStorage.setItem("game_audio_muted", String(nextMute));
+    }
+    set({ isMuted: nextMute });
   }
 }));
+
