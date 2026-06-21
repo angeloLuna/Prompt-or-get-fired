@@ -1,0 +1,95 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+coverage/
+
+# next.js
+.next/
+out/
+build/
+dist/
+
+# production
+*.tsbuildinfo
+
+# environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun-debug.log*
+
+# misc
+.DS_Store
+*.pem
+
+# editor / ide
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# turbo / cache
+.turbo/
+.cache/
+
+# eslint / prettier cache
+.eslintcache
+.prettiercache
+
+# playwright / cypress if added later
+playwright-report/
+test-results/
+cypress/videos/
+cypress/screenshots/
+
+# local generated files
+*.local
+*.bak
+*.tmp
+*.temp
+
+# ai / generated scratch files
+.ai/
+.antigravity/
+.claude/
+.codex/
+*.promptlog
+*.llm.log
+
+# uploaded or temporary design exports
+tmp/
+temp/
+
+# optional: ignore large raw design references if not meant for repo
+# diseno high/
+# design-high/
+# stitch-exports/
+
+# optional: ignore generated audio if using ElevenLabs dynamically
+public/audio/generated/
+public/assets/audio/generated/
+
+# optional: ignore final local asset experiments
+public/assets/experiments/
+public/assets/wip/
+
+# package managers
+package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+# bun.lockb

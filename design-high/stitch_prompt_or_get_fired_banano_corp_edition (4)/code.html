@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&amp;family=Fira+Sans:wght@400;700&amp;family=Inter:wght@400;700&amp;family=Outfit:wght@400;600;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100..900&amp;family=Inter:wght@100..900&amp;family=Outfit:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        
+        .glass-panel {
+            background: rgba(15, 19, 28, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-panel-active {
+            background: rgba(15, 19, 28, 0.8);
+            backdrop-filter: blur(40px);
+            border: 2px solid #fcd34d;
+            box-shadow: 0 0 20px rgba(252, 211, 77, 0.2);
+        }
+
+        .glitch-hover:hover {
+            animation: glitch 0.2s linear infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #fcd34d;
+            white-space: normal;
+            margin: 0 auto;
+            animation: blink-caret .75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #fcd34d; }
+        }
+
+        .waveform-bar {
+            animation: waveform 1.2s ease-in-out infinite;
+        }
+
+        @keyframes waveform {
+            0%, 100% { height: 4px; }
+            50% { height: 16px; }
+        }
+
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(252, 211, 77, 0.1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            pointer-events: none;
+            animation: scanline 6s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#2c303a",
+                        "on-secondary-fixed": "#001a42",
+                        "tertiary": "#f8f1ff",
+                        "surface-bright": "#353943",
+                        "primary-container": "#fcd34d",
+                        "inverse-surface": "#dfe2ef",
+                        "primary-fixed-dim": "#eac33e",
+                        "surface-container-highest": "#31353f",
+                        "background": "#0f131c",
+                        "primary": "#fff2d6",
+                        "surface-tint": "#eac33e",
+                        "on-tertiary": "#3c0091",
+                        "on-primary-fixed": "#231b00",
+                        "on-primary-container": "#715b00",
+                        "secondary": "#adc6ff",
+                        "error": "#ffb4ab",
+                        "on-tertiary-container": "#6c39d6",
+                        "error-container": "#93000a",
+                        "outline": "#99907b",
+                        "on-tertiary-fixed": "#23005c",
+                        "on-error": "#690005",
+                        "tertiary-container": "#dfd0ff",
+                        "surface-container-lowest": "#0a0e17",
+                        "surface-container-high": "#262a34",
+                        "primary-fixed": "#ffe086",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#0f131c",
+                        "on-surface": "#dfe2ef",
+                        "on-secondary-fixed-variant": "#004395",
+                        "secondary-fixed": "#d8e2ff",
+                        "secondary-container": "#0566d9",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "on-background": "#dfe2ef",
+                        "surface-container-low": "#181b25",
+                        "on-primary-fixed-variant": "#574500",
+                        "surface-variant": "#31353f",
+                        "inverse-primary": "#735c00",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "on-primary": "#3c2f00",
+                        "outline-variant": "#4d4635",
+                        "on-secondary-container": "#e6ecff",
+                        "surface-dim": "#0f131c",
+                        "on-surface-variant": "#d0c6ae",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "surface-container": "#1c1f29",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-secondary": "#002e6a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "20px",
+                        "margin-mobile": "16px",
+                        "sm": "16px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "xs": "8px",
+                        "margin-desktop": "48px",
+                        "md": "24px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "code-sm": ["Fira Code"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Outfit"],
+                        "display-lg-mobile": ["Outfit"],
+                        "label-caps": ["Fira Sans"],
+                        "display-lg": ["Outfit"]
+                    },
+                    "fontSize": {
+                        "code-sm": ["14px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen overflow-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Bar Navigation Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-base bg-background/60 dark:bg-background/60 backdrop-blur-xl border-b border-white/10">
+<div class="flex items-center gap-md">
+<span class="font-display-lg text-display-lg-mobile font-black tracking-tighter text-primary-container">PROMPT OR GET FIRED</span>
+<div class="flex gap-xs items-center px-sm py-1 bg-white/5 border border-white/10 rounded">
+<span class="font-code-sm text-code-sm text-on-surface-variant">Scope:</span>
+<span class="font-code-sm text-code-sm text-primary-container font-bold">B</span>
+<span class="w-1 h-1 rounded-full bg-white/20 mx-1"></span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Day:</span>
+<span class="font-code-sm text-code-sm text-primary-container font-bold">01</span>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary hover:text-primary-container transition-colors scale-95 active:duration-100">calendar_today</button>
+<button class="material-symbols-outlined text-primary hover:text-primary-container transition-colors scale-95 active:duration-100">layers</button>
+</div>
+</header>
+<!-- Side Bar Navigation Shell (Left - Stats) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-4rem)] w-72 z-40 hidden md:flex flex-col gap-md py-md bg-background/60 dark:bg-background/60 backdrop-blur-md border-r border-white/10 shadow-[20px_0_40px_rgba(0,0,0,0.3)]">
+<div class="px-md mb-xs">
+<h2 class="font-headline-md text-headline-md text-primary">[STATUS_CORE]</h2>
+<p class="font-code-sm text-code-sm opacity-50 text-on-surface-variant">V0.4.2_STABLE</p>
+</div>
+<!-- Reputation -->
+<div class="px-md flex flex-col gap-2">
+<div class="flex justify-between items-center text-secondary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+<span class="font-label-caps text-label-caps">Reputation</span>
+</div>
+<span class="font-code-sm text-code-sm">74%</span>
+</div>
+<div class="h-3 w-full bg-surface-container flex gap-1 p-0.5">
+<div class="h-full w-full bg-secondary shadow-[0_0_8px_rgba(173,198,255,0.6)]"></div>
+<div class="h-full w-full bg-secondary shadow-[0_0_8px_rgba(173,198,255,0.6)]"></div>
+<div class="h-full w-full bg-secondary shadow-[0_0_8px_rgba(173,198,255,0.6)]"></div>
+<div class="h-full w-full bg-white/10"></div>
+</div>
+</div>
+<!-- AI Skill -->
+<div class="px-md flex flex-col gap-2">
+<div class="flex justify-between items-center text-primary-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+<span class="font-label-caps text-label-caps">AI Skill</span>
+</div>
+<span class="font-code-sm text-code-sm">42%</span>
+</div>
+<div class="h-3 w-full bg-surface-container flex gap-1 p-0.5">
+<div class="h-full w-full bg-primary-container shadow-[0_0_8px_rgba(252,211,77,0.6)]"></div>
+<div class="h-full w-full bg-primary-container shadow-[0_0_8px_rgba(252,211,77,0.6)]"></div>
+<div class="h-full w-full bg-white/10"></div>
+<div class="h-full w-full bg-white/10"></div>
+</div>
+</div>
+<!-- HR Risk -->
+<div class="px-md flex flex-col gap-2">
+<div class="flex justify-between items-center text-error">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span class="font-label-caps text-label-caps">HR Risk</span>
+</div>
+<span class="font-code-sm text-code-sm">12%</span>
+</div>
+<div class="h-3 w-full bg-surface-container flex gap-1 p-0.5">
+<div class="h-full w-full bg-error shadow-[0_0_8px_rgba(255,180,171,0.6)]"></div>
+<div class="h-full w-1/4 bg-white/10"></div>
+<div class="h-full w-1/4 bg-white/10"></div>
+<div class="h-full w-1/4 bg-white/10"></div>
+</div>
+</div>
+<div class="mt-auto px-md py-md border-t border-white/5">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-sm">Unlocked Concepts</span>
+<ul class="flex flex-col gap-xs">
+<li class="flex items-center gap-2 p-2 bg-white/5 border border-white/10 rounded font-code-sm text-code-sm text-secondary-fixed cursor-help hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Zero-Shot Prompting</span>
+</li>
+<li class="flex items-center gap-2 p-2 bg-white/5 border border-white/10 rounded font-code-sm text-code-sm text-on-surface-variant opacity-50">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span>Chain of Thought</span>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Game Area -->
+<main class="relative h-screen w-full flex items-center justify-center pt-16 pb-48 md:pl-72 bg-surface">
+<div class="scanline"></div>
+<!-- Environment Background -->
+<div class="absolute inset-0 z-0 opacity-40 mix-blend-luminosity overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdAHsTZMMgeDhjLUwlzKhQnr0t0KnSCN2bWk66L0xmjGVvd_JJKD-OT6B7o6Tj-kCwBrzt-zwvG5C8lA2k6J3AjSLJe_5nAfwb-EoI0rk4Anbja6EGZ-i2Jf39UitUp_fcOQNoqYi5Qch0YgHHqQNSMlMTa5NJkjxkTCALOzmJT5ZZui9jEbZaBVuaFZ1n3N8sO4kdNzxTuA2I1ljkIFAqUN-AxC3DmRs9saCu3OzZg1rHV3zFsaATduStEdPFYDsEcgNENvFnV6_J')"></div>
+</div>
+<!-- Character Caricature Container -->
+<div class="relative z-10 w-full h-full flex items-end justify-center px-xl overflow-visible">
+<div class="h-[85%] w-auto relative transition-all duration-500 float-animation" id="character-container">
+<!-- Character SVGs will be injected here via renderCharacterSVG -->
+</div>
+</div>
+<!-- Floating UI Elements (HUD) -->
+<div class="absolute top-10 right-10 flex flex-col gap-4 items-end z-20">
+<div class="glass-panel p-4 border-l-4 border-primary-container flex flex-col gap-1 min-w-[200px]">
+<span class="font-label-caps text-[10px] text-on-surface-variant">CURRENT BURN RATE</span>
+<span class="font-headline-md text-headline-md text-primary-container">$12,400/hr</span>
+</div>
+<div class="glass-panel p-4 border-l-4 border-secondary flex flex-col gap-1 min-w-[200px]">
+<span class="font-label-caps text-[10px] text-on-surface-variant">AI ALIGNMENT</span>
+<div class="flex items-end gap-2">
+<span class="font-headline-md text-headline-md text-secondary">88.2%</span>
+<span class="font-code-sm text-code-sm text-secondary-fixed mb-1 animate-pulse">STABLE</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Dialogue Box -->
+<footer class="fixed bottom-0 left-0 w-full z-50 px-margin-desktop pb-8 md:pl-[312px]">
+<div class="glass-panel-active w-full h-48 relative overflow-hidden rounded-xl border-t-2 border-primary-container">
+<!-- Speaker Badge -->
+<div class="absolute -top-1 left-8 px-lg py-2 bg-primary-container text-on-primary-container font-headline-md text-body-lg font-black skew-x-[-12deg] z-20 shadow-lg">
+<div class="skew-x-[12deg]" id="speaker-name">Sven (Senior AI Eng)</div>
+</div>
+<!-- Dialogue Content -->
+<div class="p-lg pt-12 flex flex-col h-full">
+<div class="flex gap-4 items-start mb-2">
+<!-- Speaking Waveform -->
+<div class="flex items-center gap-1 h-6">
+<div class="waveform-bar w-1 bg-primary-container" style="animation-delay: 0.1s"></div>
+<div class="waveform-bar w-1 bg-primary-container" style="animation-delay: 0.3s"></div>
+<div class="waveform-bar w-1 bg-primary-container" style="animation-delay: 0.2s"></div>
+<div class="waveform-bar w-1 bg-primary-container" style="animation-delay: 0.4s"></div>
+</div>
+<div class="font-body-lg text-body-lg text-primary leading-relaxed typewriter" id="dialogue-text">
+                        "Listen, if we don't fix the hallucinations in the Q4 forecast model by 04:00, the board is going to gut the department. I need you to optimize the attention masks. Now."
+                    </div>
+</div>
+<!-- Interaction Hint -->
+<div class="mt-auto flex justify-between items-center">
+<div class="flex gap-4">
+<button class="px-md py-1 border border-white/10 hover:border-primary-container hover:bg-primary-container/10 transition-all font-code-sm text-code-sm text-on-surface-variant hover:text-primary-container flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">fast_forward</span> SKIP
+                        </button>
+<button class="px-md py-1 border border-white/10 hover:border-primary-container hover:bg-primary-container/10 transition-all font-code-sm text-code-sm text-on-surface-variant hover:text-primary-container flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">history</span> LOG
+                        </button>
+</div>
+<div class="flex items-center gap-2 text-primary-container animate-bounce">
+<span class="font-label-caps text-label-caps">CLICK TO ADVANCE</span>
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+</div>
+</div>
+<!-- Decorative corner lines -->
+<div class="absolute bottom-0 right-0 p-4 opacity-30">
+<div class="font-code-sm text-[10px] text-right">SYSTEM_PROMPT_V3<br/>AUTH_REQ: GRANTED</div>
+</div>
+</div>
+</footer>
+<!-- Bottom Nav Bar Mobile Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-[60] flex flex-col px-margin-mobile pb-safe bg-surface-container-lowest/80 dark:bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-primary/20 h-48 rounded-t-xl">
+<div class="flex justify-around items-center h-full">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-caps text-label-caps mt-1">Log</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary-container font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="font-label-caps text-label-caps mt-1">Auto</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">fast_forward</span>
+<span class="font-label-caps text-label-caps mt-1">Skip</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps mt-1">Settings</span>
+</div>
+</div>
+</nav>
+<script>
+        /**
+         * Renders character caricatures with exaggerated features and distinct silhouettes.
+         */
+        function renderCharacterSVG(characterId) {
+            const container = document.getElementById('character-container');
+            if (!container) return;
+
+            let svgContent = '';
+            
+            switch(characterId) {
+                case 'sven':
+                    svgContent = `
+                    <svg viewBox="0 0 400 500" class="h-full w-auto filter drop-shadow-[0_0_40px_rgba(173,198,255,0.3)]">
+                        <!-- Sven: Tired, sarcastic, tech-bro caricature -->
+                        <!-- Techwear Hoodie Body -->
+                        <path d="M100,500 L100,420 Q100,350 200,350 Q300,350 300,420 L300,500" fill="#1c1f29" stroke="#adc6ff" stroke-width="3"/>
+                        <path d="M140,360 L200,450 L260,360" fill="none" stroke="#adc6ff" stroke-width="2" stroke-dasharray="5 5"/>
+                        <!-- Head: Narrow, slightly slouching -->
+                        <ellipse cx="200" cy="280" rx="75" ry="95" fill="#fcd34d" fill-opacity="0.2" stroke="#fcd34d" stroke-width="2"/>
+                        <!-- Messy Hair: Exaggerated spiky tech hair -->
+                        <path d="M125,280 Q120,180 200,160 Q280,180 275,280 L260,280 Q250,210 200,210 Q150,210 140,280 Z" fill="#262a34"/>
+                        <path d="M150,190 L160,160 M200,180 L200,140 M240,195 L260,165" stroke="#262a34" stroke-width="8" stroke-linecap="round"/>
+                        <!-- Massive Tech-Bro Glasses -->
+                        <rect x="135" y="270" width="130" height="40" rx="5" fill="#0f131c" fill-opacity="0.8" stroke="#adc6ff" stroke-width="2"/>
+                        <circle cx="165" cy="290" r="12" fill="#adc6ff" fill-opacity="0.3"/>
+                        <circle cx="235" cy="290" r="12" fill="#adc6ff" fill-opacity="0.3"/>
+                        <!-- Eyes: Very tired bags -->
+                        <path d="M145,315 Q165,325 185,315" fill="none" stroke="#adc6ff" stroke-width="1" opacity="0.6"/>
+                        <path d="M215,315 Q235,325 255,315" fill="none" stroke="#adc6ff" stroke-width="1" opacity="0.6"/>
+                        <!-- Sarcastic Smirk -->
+                        <path d="M180,345 Q210,355 230,340" fill="none" stroke="#fcd34d" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Exaggerated Headset -->
+                        <rect x="100" y="250" width="25" height="70" rx="10" fill="#31353f" stroke="#adc6ff"/>
+                        <rect x="275" y="250" width="25" height="70" rx="10" fill="#31353f" stroke="#adc6ff"/>
+                        <path d="M125,260 Q200,220 275,260" fill="none" stroke="#31353f" stroke-width="12"/>
+                    </svg>`;
+                    break;
+                case 'gerry':
+                    svgContent = `
+                    <svg viewBox="0 0 400 500" class="h-full w-auto">
+                        <!-- Gerry: Exaggerated corporate intensity, large head, frantic brows -->
+                        <path d="M50,500 L70,380 Q100,320 200,320 Q300,320 330,380 L350,500" fill="#262a34" stroke="#dfe2ef" stroke-width="2"/>
+                        <!-- Gigantic Head -->
+                        <ellipse cx="200" cy="220" rx="110" ry="130" fill="#fcd34d" fill-opacity="0.1" stroke="#fcd34d" stroke-width="3"/>
+                        <!-- Frantic Eyebrows -->
+                        <path d="M130,180 Q155,140 180,175" fill="none" stroke="#dfe2ef" stroke-width="6" stroke-linecap="round"/>
+                        <path d="M220,175 Q245,140 270,180" fill="none" stroke="#dfe2ef" stroke-width="6" stroke-linecap="round"/>
+                        <!-- Bug-eyed Intensity -->
+                        <circle cx="160" cy="210" r="25" fill="#fff" stroke="#000" stroke-width="2"/>
+                        <circle cx="240" cy="210" r="25" fill="#fff" stroke="#000" stroke-width="2"/>
+                        <circle cx="165" cy="215" r="10" fill="#000"/>
+                        <circle cx="235" cy="215" r="10" fill="#000"/>
+                        <!-- Screaming Corporate Mouth -->
+                        <path d="M160,280 Q200,330 240,280" fill="#3c0091" stroke="#dfe2ef" stroke-width="2"/>
+                        <!-- Tight Tie -->
+                        <path d="M190,320 L210,320 L205,450 L195,450 Z" fill="#93000a"/>
+                    </svg>`;
+                    break;
+                case 'pam':
+                    svgContent = `
+                    <svg viewBox="0 0 400 500" class="h-full w-auto">
+                        <!-- Pam: Bubblier, chaotic energy, huge eyes -->
+                        <path d="M100,500 Q120,340 200,340 Q280,340 300,500" fill="#dfd0ff" stroke="#6c39d6" stroke-width="2"/>
+                        <!-- Head -->
+                        <circle cx="200" cy="240" r="90" fill="#fcd34d" fill-opacity="0.1" stroke="#fcd34d" stroke-width="3"/>
+                        <!-- Enormous Sparkly Eyes (Chaotic Energy) -->
+                        <circle cx="160" cy="230" r="35" fill="white" stroke="#6c39d6" stroke-width="2"/>
+                        <circle cx="240" cy="230" r="35" fill="white" stroke="#6c39d6" stroke-width="2"/>
+                        <circle cx="165" cy="230" r="18" fill="#6c39d6"/>
+                        <circle cx="235" cy="230" r="18" fill="#6c39d6"/>
+                        <circle cx="170" cy="220" r="6" fill="white"/>
+                        <circle cx="240" cy="220" r="6" fill="white"/>
+                        <!-- Wild Hair Silhouette -->
+                        <path d="M110,240 Q60,140 150,120 Q200,80 250,120 Q340,140 290,240" fill="none" stroke="#6c39d6" stroke-width="10" stroke-linecap="round" stroke-dasharray="20 10"/>
+                        <!-- Grinning Mouth -->
+                        <path d="M170,290 Q200,320 230,290" fill="none" stroke="#6c39d6" stroke-width="5" stroke-linecap="round"/>
+                    </svg>`;
+                    break;
+                case 'don':
+                    svgContent = `
+                    <svg viewBox="0 0 400 500" class="h-full w-auto">
+                        <!-- Don Banano: Bombastic, Banana head, gold/sparkle -->
+                        <path d="M80,500 L120,350 Q200,320 280,350 L320,500" fill="#735c00" stroke="#fcd34d" stroke-width="4"/>
+                        <!-- Banana-shaped Head -->
+                        <path d="M150,300 Q100,100 200,50 Q300,100 250,300 Z" fill="#ffe086" stroke="#fcd34d" stroke-width="4"/>
+                        <!-- Dramatic Mustache -->
+                        <path d="M160,220 Q200,190 240,220 L250,240 Q200,210 150,240 Z" fill="#231b00"/>
+                        <!-- Teeny Tiny Eyes (Dramatic contrast) -->
+                        <circle cx="185" cy="180" r="5" fill="#231b00"/>
+                        <circle cx="215" cy="180" r="5" fill="#231b00"/>
+                        <!-- Sparkles -->
+                        <path d="M120,150 L130,130 L110,130 Z" fill="#fcd34d" class="animate-pulse"/>
+                        <path d="M280,180 L290,160 L270,160 Z" fill="#fcd34d" class="animate-pulse" style="animation-delay: 0.5s"/>
+                    </svg>`;
+                    break;
+                case 'helga':
+                    svgContent = `
+                    <svg viewBox="0 0 400 500" class="h-full w-auto">
+                        <!-- Helga: Threatening-comic, sharp features, villainous but funny -->
+                        <path d="M120,500 L100,300 L300,300 L280,500" fill="#181b25" stroke="#ffb4ab" stroke-width="3"/>
+                        <!-- Sharp Triangle Head -->
+                        <path d="M130,280 L200,80 L270,280 Z" fill="#fcd34d" fill-opacity="0.1" stroke="#ffb4ab" stroke-width="3"/>
+                        <!-- Pointy Glasses (Villainous) -->
+                        <path d="M145,200 L195,215 L145,230 Z" fill="#93000a"/>
+                        <path d="M255,200 L205,215 L255,230 Z" fill="#93000a"/>
+                        <!-- Sharp Sinister Smile -->
+                        <path d="M180,250 L200,270 L220,250" fill="none" stroke="#ffb4ab" stroke-width="3" stroke-linecap="round"/>
+                        <!-- High Bun Hair -->
+                        <circle cx="200" cy="70" r="30" fill="#31353f" stroke="#ffb4ab" stroke-width="2"/>
+                    </svg>`;
+                    break;
+            }
+            
+            container.innerHTML = svgContent;
+        }
+
+        // Micro-interaction for dialogue typing effect simulation
+        const dialogueBox = document.getElementById('dialogue-text');
+        const textContent = dialogueBox.innerText;
+        dialogueBox.innerText = '';
+        
+        let charIndex = 0;
+        function typeWriter() {
+            if (charIndex < textContent.length) {
+                dialogueBox.innerText += textContent.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 20);
+            }
+        }
+        
+        // Start effect and render initial character
+        window.onload = () => {
+            renderCharacterSVG('sven'); // Default character
+            typeWriter();
+        };
+
+        // Hover glitch effect on status bars
+        document.querySelectorAll('.px-md.flex.flex-col').forEach(bar => {
+            bar.addEventListener('mouseenter', () => {
+                bar.classList.add('glitch-hover');
+            });
+            bar.addEventListener('mouseleave', () => {
+                bar.classList.remove('glitch-hover');
+            });
+        });
+
+        // Debug: Allow switching characters by clicking the speaker badge
+        document.getElementById('speaker-name').addEventListener('click', () => {
+            const chars = ['sven', 'gerry', 'pam', 'don', 'helga'];
+            const current = document.getElementById('speaker-name').innerText.toLowerCase();
+            let nextIndex = 0;
+            if (current.includes('sven')) nextIndex = 1;
+            else if (current.includes('gerry')) nextIndex = 2;
+            else if (current.includes('pam')) nextIndex = 3;
+            else if (current.includes('don')) nextIndex = 4;
+            else nextIndex = 0;
+            
+            const nextChar = chars[nextIndex];
+            const displayNames = {
+                'sven': 'Sven (Senior AI Eng)',
+                'gerry': 'Gerry (Management)',
+                'pam': 'Pam (Product Manager)',
+                'don': 'Don Banano (CEO)',
+                'helga': 'Helga (HR Compliance)'
+            };
+            
+            document.getElementById('speaker-name').innerText = displayNames[nextChar];
+            renderCharacterSVG(nextChar);
+        });
+    </script>
+</body></html>
