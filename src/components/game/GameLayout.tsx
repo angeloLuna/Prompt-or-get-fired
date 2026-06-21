@@ -11,6 +11,7 @@ import { EndingScreen } from "./EndingScreen";
 
 export const GameLayout: React.FC = () => {
   const { activeDayScenes, currentSceneIndex } = useGameStore();
+  const [isSpeaking, setIsSpeaking] = React.useState(false);
 
   const scene = activeDayScenes[currentSceneIndex];
 
@@ -25,10 +26,10 @@ export const GameLayout: React.FC = () => {
 
       {/* Main Gameplay Screen Area */}
       <main className="flex flex-col gap-6 h-full relative">
-        <VisualNovelStage scene={scene} />
+        <VisualNovelStage scene={scene} isSpeaking={isSpeaking} />
 
         <div className="flex flex-col gap-4">
-          <DialogueBox scene={scene} />
+          <DialogueBox scene={scene} onTypingChange={setIsSpeaking} />
           
           {/* Choices selector overlay */}
           {scene.type === "choice" && (

@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Definition for reusable gradients -->
+  <defs>
+    <linearGradient id="bananaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe066" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="suitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#312e81" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="tieGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#be185d" />
+    </linearGradient>
+  </defs>
+
+  <!-- Torso / Suit (Bust Layout) -->
+  <g id="torso">
+    <!-- Shoulders / Jacket -->
+    <path d="M 120 480 C 120 420, 160 380, 256 380 C 352 380, 392 420, 392 480 L 410 512 L 102 512 Z" fill="url(#suitGrad)" />
+    
+    <!-- White Shirt V-Neck -->
+    <path d="M 210 380 L 256 440 L 302 380 Z" fill="#ffffff" />
+    
+    <!-- Teal/Purple Tie -->
+    <path d="M 246 410 L 266 410 L 276 490 L 256 512 L 236 490 Z" fill="url(#tieGrad)" />
+    
+    <!-- Collar Lapels -->
+    <path d="M 170 380 L 215 425 L 210 380 Z" fill="#4338ca" />
+    <path d="M 342 380 L 297 425 L 302 380 Z" fill="#4338ca" />
+    
+    <!-- HR Employee Badge hanging from neck strap -->
+    <g id="badge" transform="translate(140, 420)">
+      <!-- Lanyard strap -->
+      <path d="M 20 -40 C 20 -10, 10 10, 5 20" fill="none" stroke="#a21caf" strokeWidth="4" />
+      <!-- Card Holder -->
+      <rect x="-15" y="20" width="40" height="50" rx="4" fill="#0f172a" stroke="#f43f5e" strokeWidth="2" />
+      <!-- Photo Placeholder -->
+      <rect x="-10" y="25" width="12" height="15" fill="#fcd34d" />
+      <!-- Text lines -->
+      <line x1="8" y1="28" x2="20" y2="28" stroke="#ffffff" strokeWidth="2" />
+      <line x1="8" y1="34" x2="16" y2="34" stroke="#ffffff" strokeWidth="2" strokeOpacity="0.6" />
+      <!-- Badge Badge Type Tag -->
+      <rect x="-10" y="48" width="30" height="16" fill="#10b981" rx="2" />
+      <text x="5" y="59" fill="#ffffff" fontSize="9" fontWeight="bold" fontFamily="monospace" text-anchor="middle">HR</text>
+    </g>
+  </g>
+
+  <!-- Neck Link -->
+  <path d="M 226 340 L 286 340 L 276 390 L 236 390 Z" fill="#d97706" />
+
+  <!-- Banana Head (Large curved banana silhouette) -->
+  <g id="banana-head">
+    <!-- Shadows & highlights layer -->
+    <!-- Base Banana Path -->
+    <path d="M 230 60 C 210 120, 190 200, 210 320 C 220 380, 260 410, 290 350 C 310 310, 315 240, 295 180 C 280 130, 265 90, 260 60 Z" fill="url(#bananaGrad)" />
+    
+    <!-- Inner banana shadow -->
+    <path d="M 230 60 C 210 120, 190 200, 210 320 C 220 380, 240 370, 240 320 C 220 200, 235 120, 260 60 Z" fill="#d97706" opacity="0.25" />
+    
+    <!-- Banana Stem (Top tip) -->
+    <path d="M 230 60 L 260 60 L 255 35 L 235 38 Z" fill="#78350f" />
+    <path d="M 235 38 L 255 35 L 252 25 L 238 27 Z" fill="#451a03" />
+
+    <!-- Banana Bottom Tip -->
+    <path d="M 283 365 C 290 360, 292 355, 290 350 C 282 350, 275 358, 272 368 Z" fill="#78350f" />
+
+    <!-- Subtle brown ripe spots -->
+    <circle cx="210" cy="180" r="4" fill="#78350f" opacity="0.3" />
+    <circle cx="205" cy="240" r="3" fill="#78350f" opacity="0.3" />
+    <circle cx="280" cy="120" r="4" fill="#78350f" opacity="0.25" />
+    <circle cx="295" cy="290" r="5" fill="#78350f" opacity="0.3" />
+  </g>
+
+  <!-- Recruiter Face Layout (integrated on the banana body) -->
+  <g id="face" transform="translate(10, 20)">
+    <!-- Rosy Cheek (Left) -->
+    <ellipse cx="210" cy="235" rx="14" ry="8" fill="#f43f5e" opacity="0.5" />
+    <!-- Rosy Cheek (Right) -->
+    <ellipse cx="272" cy="225" rx="14" ry="8" fill="#f43f5e" opacity="0.5" />
+
+    <!-- Left Eye (Extremely happy recruiter squint) -->
+    <path d="M 195 225 Q 210 210 220 225" fill="none" stroke="#0f172a" strokeWidth="5.5" strokeLinecap="round" />
+    <!-- Right Eye (Extremely happy recruiter squint) -->
+    <path d="M 258 215 Q 273 200 283 215" fill="none" stroke="#0f172a" strokeWidth="5.5" strokeLinecap="round" />
+
+    <!-- Eyebrows (Suspiciously arched) -->
+    <path d="M 190 208 Q 208 198 220 212" fill="none" stroke="#78350f" strokeWidth="3" strokeLinecap="round" />
+    <path d="M 260 198 Q 278 188 290 202" fill="none" stroke="#78350f" strokeWidth="3" strokeLinecap="round" />
+
+    <!-- Suspicious but overly happy Recruiter Smile -->
+    <path d="M 215 240 Q 238 275 260 236" fill="none" stroke="#0f172a" strokeWidth="5" strokeLinecap="round" />
+    <!-- Smile creases -->
+    <path d="M 211 237 Q 214 242 218 240" fill="none" stroke="#0f172a" strokeWidth="3.5" strokeLinecap="round" />
+    <path d="M 263 233 Q 260 238 256 236" fill="none" stroke="#0f172a" strokeWidth="3.5" strokeLinecap="round" />
+  </g>
+
+  <!-- Small Recruiter Headset -->
+  <g id="headset">
+    <!-- Ear cup (Left) -->
+    <ellipse cx="188" cy="245" rx="12" ry="18" fill="#1e293b" transform="rotate(-15, 188, 245)" />
+    <ellipse cx="188" cy="245" rx="6" ry="10" fill="#0d9488" transform="rotate(-15, 188, 245)" />
+    
+    <!-- Thin headband arch -->
+    <path d="M 188 230 C 180 180, 210 130, 248 115" fill="none" stroke="#1e293b" strokeWidth="5.5" strokeLinecap="round" />
+    
+    <!-- Microphone boom -->
+    <path d="M 188 252 Q 200 275 224 270" fill="none" stroke="#0f172a" strokeWidth="3.5" strokeLinecap="round" />
+    <!-- Microphone tip -->
+    <circle cx="227" cy="269" r="5" fill="#f43f5e" />
+    <circle cx="227" cy="269" r="2.5" fill="#ffffff" />
+  </g>
+</svg>
