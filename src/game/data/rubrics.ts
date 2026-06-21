@@ -15,6 +15,7 @@ export interface RubricEvaluation {
     skill: number;
     risk: number;
   };
+  matchedSignals?: string[];
 }
 
 export interface PromptRubric {
