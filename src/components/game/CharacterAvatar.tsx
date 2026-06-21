@@ -26,16 +26,17 @@ type SpriteMap = Record<string, string>;
 const SPRITE_MAPS: Record<string, SpriteMap> = {
   // PM and Manager share the pm_* PNG set
   pm: {
-    neutral: "/characters/pm_neutral.png",
-    approving: "/characters/pm_happy.png",
-    excited: "/characters/pm_happy.png",
-    confused: "/characters/pm_worried.png",
-    worried: "/characters/pm_worried.png",
-    smug: "/characters/pm_smug.png",
-    angry: "/characters/pm_angry.png",
-    molesto: "/characters/pm_angry.png",
-    _speaking: "/characters/pm_speaking.png",
-    _fallback: "/characters/pm_neutral.png",
+    neutral: "/characters/pam_neutral.png",
+    approving: "/characters/pam_happy.png",
+    excited: "/characters/pam_happy.png",
+    happy: "/characters/pam_happy.png",
+    confused: "/characters/pam_worried.png",
+    worried: "/characters/pam_worried.png",
+    smug: "/characters/pam_slug.png", // Uses existing typo file pam_slug.png
+    angry: "/characters/pam_angry.png",
+    molesto: "/characters/pam_angry.png",
+    _speaking: "/characters/pam_speaking.png",
+    _fallback: "/characters/pam_neutral.png",
   },
   manager: {
     neutral: "/characters/pm_neutral.png",
