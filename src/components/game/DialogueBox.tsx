@@ -16,45 +16,143 @@ const characters = {
   hr: { name: "Helga (HR)", color: "#8b5cf6" }
 };
 
+const CHARACTER_VOICES: Record<string, string> = {
+  manager: "CwhRBWXzGAHq8TQ4Fs17", // Roger (Laid-Back, Casual)
+  pm: "FGY2WhTYpPnrIDTdsKH5",      // Laura (Enthusiast, Quirky)
+  senior: "cjVigY5qzO86Huf0OWal",  // Eric (Smooth, Trustworthy)
+  ceo: "pNInz6obpgDQGcFmaJgB",     // Adam (Dominant, Firm)
+  hr: "XrExE9yKIg1WjnnlVkGX"       // Matilda (Knowledgeable, Professional)
+};
+
 export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange }) => {
   const nextScene = useGameStore((state) => state.nextScene);
+  const isMuted = useGameStore((state) => state.isMuted);
+
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  
   const textRef = useRef("");
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Sync speaking state with typing or audio playback
   useEffect(() => {
-    onTypingChange?.(isTyping);
-  }, [isTyping, onTypingChange]);
+    onTypingChange?.(isTyping || isAudioPlaying);
+  }, [isTyping, isAudioPlaying, onTypingChange]);
+
+  // Handle mute toggles during playback
+  useEffect(() => {
+    if (isMuted && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
+      setIsAudioPlaying(false);
+    }
+  }, [isMuted]);
+
+  // Clean up audio on unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   const charInfo = characters[scene.character] || { name: "Desconocido", color: "#64748b" };
 
   useEffect(() => {
-    // Clear any active typewriter timers
+    // Stop and clear any active audio immediately (Safe inside useEffect)
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
+    }
+    
+    // Clear any active typewriter timers immediately
     if (timerRef.current) clearInterval(timerRef.current);
 
-    setDisplayedText("");
-    setIsTyping(true);
-    textRef.current = "";
+    // Defer state updates to avoid synchronous setState inside useEffect body
+    const deferTimer = setTimeout(() => {
+      setIsAudioPlaying(false);
+      setDisplayedText("");
+      setIsTyping(true);
+      textRef.current = "";
 
-    const targetText = scene.dialogue;
-    let charIndex = 0;
+      const targetText = scene.dialogue;
+      let charIndex = 0;
 
-    timerRef.current = setInterval(() => {
-      if (charIndex < targetText.length) {
-        textRef.current += targetText[charIndex];
-        setDisplayedText(textRef.current);
-        charIndex++;
-      } else {
-        setIsTyping(false);
-        if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = setInterval(() => {
+        if (charIndex < targetText.length) {
+          textRef.current += targetText[charIndex];
+          setDisplayedText(textRef.current);
+          charIndex++;
+        } else {
+          setIsTyping(false);
+          if (timerRef.current) clearInterval(timerRef.current);
+        }
+      }, 20); // Type speed 20ms per character
+    }, 0);
+
+    // Fetch and play TTS audio
+    const fetchAndPlayAudio = async () => {
+      try {
+        const voiceId = CHARACTER_VOICES[scene.character] || "21m00Tcm4TlvDq8ikWAM";
+        const response = await fetch("/api/tts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            text: scene.dialogue,
+            voiceId
+          })
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          console.warn("Failed to fetch TTS audio:", response.status, errData);
+          return;
+        }
+
+        const contentType = response.headers.get("content-type") || "";
+        if (contentType.includes("application/json")) {
+          const data = await response.json();
+          console.log("TTS Mock Mode:", data.message);
+          return;
+        }
+
+        const blob = await response.blob();
+        const audioUrl = URL.createObjectURL(blob);
+        const audio = new Audio(audioUrl);
+        audioRef.current = audio;
+
+        audio.onplay = () => setIsAudioPlaying(true);
+        audio.onended = () => {
+          setIsAudioPlaying(false);
+          URL.revokeObjectURL(audioUrl);
+        };
+        audio.onerror = () => {
+          setIsAudioPlaying(false);
+          URL.revokeObjectURL(audioUrl);
+        };
+
+        await audio.play();
+      } catch (error) {
+        console.warn("Audio playback error:", error);
+        setIsAudioPlaying(false);
       }
-    }, 20); // Type speed 20ms per character
+    };
+
+    if (!isMuted) {
+      fetchAndPlayAudio();
+    }
 
     return () => {
+      clearTimeout(deferTimer);
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [scene.dialogue]);
+  }, [scene.dialogue, isMuted, scene.character]);
 
   const handleBoxClick = () => {
     if (isTyping) {
@@ -65,6 +163,11 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
     } else {
       // Trigger next scene transition
       if (scene.type !== "choice" && scene.type !== "prompt") {
+        if (audioRef.current) {
+          audioRef.current.pause();
+          audioRef.current = null;
+        }
+        setIsAudioPlaying(false);
         nextScene();
       }
     }
@@ -89,7 +192,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
       </div>
 
       {/* Speaking Soundwave Visualizer */}
-      {isTyping && (
+      {(isTyping || isAudioPlaying) && (
         <div className="absolute top-4 right-6 flex items-end gap-[3px] h-4">
           <div className="w-[3px] h-2 bg-[#fcd34d] animate-[bounce_0.6s_infinite_alternate]" />
           <div className="w-[3px] h-4 bg-[#fcd34d] animate-[bounce_0.8s_infinite_alternate_0.1s]" />
