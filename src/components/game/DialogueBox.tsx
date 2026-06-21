@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 
 interface DialogueBoxProps {
   scene: Scene;
+  onTypingChange?: (isTyping: boolean) => void;
 }
 
 const characters = {
@@ -15,12 +16,16 @@ const characters = {
   hr: { name: "Helga (HR)", color: "#8b5cf6" }
 };
 
-export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene }) => {
+export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange }) => {
   const nextScene = useGameStore((state) => state.nextScene);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const textRef = useRef("");
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    onTypingChange?.(isTyping);
+  }, [isTyping, onTypingChange]);
 
   const charInfo = characters[scene.character] || { name: "Desconocido", color: "#64748b" };
 

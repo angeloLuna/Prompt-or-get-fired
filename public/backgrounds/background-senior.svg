@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#020813" />
+      <stop offset="100%" stop-color="#010307" />
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#083344" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#020617" stop-opacity="0.65" />
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0891b2" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Base Dark Background -->
+  <rect width="1440" height="900" fill="url(#bgGrad)" />
+
+  <!-- Center spotlight glow -->
+  <circle cx="720" cy="450" r="500" fill="url(#centerGlow)" />
+
+  <!-- Grid overlay in cyan -->
+  <path d="M 0 0 L 1440 0 M 0 90 L 1440 90 M 0 180 L 1440 180 M 0 270 L 1440 270 M 0 360 L 1440 360 M 0 450 L 1440 450 M 0 540 L 1440 540 M 0 630 L 1440 630 M 0 720 L 1440 720 M 0 810 L 1440 810" fill="none" stroke="rgba(8, 145, 178, 0.03)" strokeWidth="1" />
+  <path d="M 0 0 L 0 900 M 144 0 L 144 900 M 288 0 L 288 900 M 432 0 L 432 900 M 576 0 L 576 900 M 720 0 L 720 900 M 864 0 L 864 900 M 1008 0 L 1008 900 M 1152 0 L 1152 900 M 1296 0 L 1296 900" fill="none" stroke="rgba(8, 145, 178, 0.03)" strokeWidth="1" />
+
+  <!-- Technical code line traces -->
+  <path d="M 1200 100 L 1500 -100" fill="none" stroke="#22d3ee" strokeWidth="2.5" opacity="0.1" />
+  <path d="M -50 800 L 300 650" fill="none" stroke="#0d9488" strokeWidth="2" opacity="0.1" />
+
+  <!-- LEFT SIDE: Tech Terminal / Scrolling code lines / Neural Network Nodes -->
+  <g id="left-terminal" transform="translate(60, 140)">
+    <!-- Terminal Panel Frame -->
+    <rect x="0" y="0" width="340" height="460" rx="16" fill="url(#panelGrad)" stroke="rgba(8, 145, 178, 0.25)" strokeWidth="1.5" />
+    <rect x="0" y="0" width="340" height="460" rx="16" fill="none" stroke="rgba(13, 148, 136, 0.15)" strokeWidth="1" />
+
+    <text x="20" y="35" fill="#22d3ee" fontSize="13" fontFamily="monospace" fontWeight="bold" letter-spacing="1">DEV_SHELL // sven_root</text>
+    <line x1="20" y1="48" x2="320" y2="48" stroke="rgba(8, 145, 178, 0.2)" strokeWidth="1.5" />
+
+    <!-- Terminal Code Text -->
+    <g transform="translate(20, 70)" fontSize="10" fontFamily="monospace">
+      <text x="0" y="15" fill="#64748b">import { PromptEvaluator } from "./evaluator";</text>
+      <text x="0" y="32" fill="#64748b">import * as anthropic from "@anthropic-ai/sdk";</text>
+      <text x="0" y="49" fill="#22d3ee">const sysInstruction = `</text>
+      <text x="15" y="66" fill="#0d9488">Actúa como un agente AI robusto.</text>
+      <text x="15" y="83" fill="#0d9488">Restringe tus respuestas al contexto provisto.</text>
+      <text x="15" y="100" fill="#0d9488">No asumas datos de precios ni alucines.</text>
+      <text x="0" y="117" fill="#22d3ee">`;</text>
+      <text x="0" y="140" fill="#e2e8f0">function evaluatePrompt(promptText: string) {</text>
+      <text x="15" y="157" fill="#e2e8f0">const signals = scanRegex(promptText);</text>
+      <text x="15" y="174" fill="#a855f7">if (signals.length &lt; threshold) {</text>
+      <text x="30" y="191" fill="#f43f5e">throw new Error("PROMPT_TOO_WEAK");</text>
+      <text x="15" y="208" fill="#a855f7">}</text>
+      <text x="15" y="225" fill="#10b981">return calculateScore(signals);</text>
+      <text x="0" y="242" fill="#e2e8f0">}</text>
+    </g>
+
+    <!-- Visual Neural Network Node Graph -->
+    <g id="neural-net" transform="translate(40, 340)">
+      <text x="-20" y="-12" fill="#64748b" fontSize="9" fontFamily="monospace" fontWeight="bold">GRAPH: MODEL_WEIGHTS_NODE</text>
+      
+      <!-- Nodes (Circles) -->
+      <circle cx="10" cy="40" r="6" fill="#020617" stroke="#22d3ee" strokeWidth="2" />
+      <circle cx="10" cy="80" r="6" fill="#020617" stroke="#22d3ee" strokeWidth="2" />
+      
+      <circle cx="90" cy="20" r="6" fill="#020617" stroke="#0d9488" strokeWidth="2" />
+      <circle cx="90" cy="60" r="6" fill="#020617" stroke="#0d9488" strokeWidth="2" />
+      <circle cx="90" cy="100" r="6" fill="#020617" stroke="#0d9488" strokeWidth="2" />
+      
+      <circle cx="180" cy="40" r="6" fill="#020617" stroke="#22d3ee" strokeWidth="2" />
+      <circle cx="180" cy="80" r="6" fill="#020617" stroke="#22d3ee" strokeWidth="2" />
+
+      <!-- Connections (Lines) -->
+      <line x1="16" y1="40" x2="84" y2="20" stroke="rgba(34,182,212,0.3)" strokeWidth="1.5" />
+      <line x1="16" y1="40" x2="84" y2="60" stroke="rgba(34,182,212,0.3)" strokeWidth="1.5" />
+      <line x1="16" y1="80" x2="84" y2="60" stroke="rgba(34,182,212,0.3)" strokeWidth="1.5" />
+      <line x1="16" y1="80" x2="84" y2="100" stroke="rgba(34,182,212,0.3)" strokeWidth="1.5" />
+      
+      <line x1="96" y1="20" x2="174" y2="40" stroke="rgba(13,148,136,0.3)" strokeWidth="1.5" />
+      <line x1="96" y1="60" x2="174" y2="40" stroke="rgba(13,148,136,0.3)" strokeWidth="1.5" />
+      <line x1="96" y1="60" x2="174" y2="80" stroke="rgba(13,148,136,0.3)" strokeWidth="1.5" />
+      <line x1="96" y1="100" x2="174" y2="80" stroke="rgba(13,148,136,0.3)" strokeWidth="1.5" />
+    </g>
+  </g>
+
+  <!-- RIGHT SIDE: System Status & Diagnostic Logs -->
+  <g id="right-terminal" transform="translate(1040, 160)">
+    <rect x="0" y="0" width="340" height="420" rx="16" fill="url(#panelGrad)" stroke="rgba(8, 145, 178, 0.25)" strokeWidth="1.5" />
+    <rect x="0" y="0" width="340" height="420" rx="16" fill="none" stroke="rgba(13, 148, 136, 0.15)" strokeWidth="1" />
+
+    <text x="20" y="35" fill="#0d9488" fontSize="13" fontFamily="monospace" fontWeight="bold" letter-spacing="1">SYSTEM_EVAL_MONITOR</text>
+    <line x1="20" y1="48" x2="320" y2="48" stroke="rgba(8, 145, 178, 0.2)" strokeWidth="1.5" />
+
+    <!-- Progress Evals bars -->
+    <g transform="translate(20, 70)">
+      <text x="0" y="10" fill="#dfe2ef" fontSize="11" fontFamily="sans-serif">Grounding Benchmark</text>
+      <rect x="0" y="18" width="300" height="8" rx="4" fill="rgba(255,255,255,0.05)" />
+      <rect x="0" y="18" width="270" height="8" rx="4" fill="#0d9488" />
+      <text x="255" y="10" fill="#0d9488" fontSize="9" fontFamily="monospace" fontWeight="bold">90%</text>
+    </g>
+
+    <g transform="translate(20, 120)">
+      <text x="0" y="10" fill="#dfe2ef" fontSize="11" fontFamily="sans-serif">Hallucination Mitigation</text>
+      <rect x="0" y="18" width="300" height="8" rx="4" fill="rgba(255,255,255,0.05)" />
+      <rect x="0" y="18" width="220" height="8" rx="4" fill="#22d3ee" />
+      <text x="255" y="10" fill="#22d3ee" fontSize="9" fontFamily="monospace" fontWeight="bold">73%</text>
+    </g>
+
+    <!-- Terminal logs console -->
+    <g transform="translate(20, 180)">
+      <rect x="0" y="0" width="300" height="210" rx="8" fill="#02040a" stroke="rgba(8,145,178,0.1)" strokeWidth="1" />
+      <text x="15" y="25" fill="#a855f7" fontSize="9" fontFamily="monospace">[INFO] Running evals on staging...</text>
+      <text x="15" y="45" fill="#10b981" fontSize="9" fontFamily="monospace">[SUCCESS] rubrics.ts loaded cleanly.</text>
+      <text x="15" y="65" fill="#22d3ee" fontSize="9" fontFamily="monospace">[EVAL] Test prompt: 'Actúa como analista...'</text>
+      <text x="15" y="85" fill="#22d3ee" fontSize="9" fontFamily="monospace">[EVAL] Signals matched: 8 / 8</text>
+      <text x="15" y="105" fill="#10b981" fontSize="9" fontFamily="monospace">[EVAL] Grade resolved: SUCCESS (10/10)</text>
+      <text x="15" y="125" fill="#64748b" fontSize="9" fontFamily="monospace">[SYSTEM] Temp set deterministically to 0.0</text>
+      <text x="15" y="145" fill="#f43f5e" fontSize="9" fontFamily="monospace">[WARN] Memory load high. Context is active.</text>
+      
+      <!-- Flashing block -->
+      <rect x="15" y="165" width="8" height="12" fill="#22d3ee" className="animate-pulse" />
+    </g>
+  </g>
+</svg>

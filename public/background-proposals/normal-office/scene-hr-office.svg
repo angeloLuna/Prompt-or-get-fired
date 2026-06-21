@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%">
+  <defs>
+    <!-- Wall gradient -->
+    <linearGradient id="wallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f0f7f4" />
+      <stop offset="100%" stop-color="#dcebe5" />
+    </linearGradient>
+    <!-- Floor gradient (Warm Light Oak) -->
+    <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8dcca" />
+      <stop offset="100%" stop-color="#d2c0ab" />
+    </linearGradient>
+    <!-- Desk gradient -->
+    <linearGradient id="deskGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f5f7f6" />
+    </linearGradient>
+    <!-- Glass window gradient -->
+    <linearGradient id="windowSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e0f2fe" />
+      <stop offset="100%" stop-color="#bae6fd" />
+    </linearGradient>
+    <!-- Soft shadow for furniture -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Wall -->
+  <rect width="1440" height="600" fill="url(#wallGrad)" />
+
+  <!-- Baseboard -->
+  <rect y="585" width="1440" height="15" fill="#a4bdab" />
+
+  <!-- Wooden Floor -->
+  <rect y="600" width="1440" height="300" fill="url(#floorGrad)" />
+  <!-- Floor planks line details -->
+  <path d="M 0 650 L 1440 650 M 0 710 L 1440 710 M 0 780 L 1440 780 M 0 850 L 1440 850" stroke="#c0ac95" stroke-width="1.5" />
+  <path d="M 200 600 L 200 650 M 800 600 L 800 650 M 450 650 L 450 710 M 1100 650 L 1100 710 M 150 710 L 150 780 M 750 710 L 750 780 M 1300 710 L 1300 780 M 400 780 L 400 850 M 950 780 L 950 850 M 300 850 L 300 900 M 850 850 L 850 900" stroke="#c0ac95" stroke-width="1.5" />
+
+  <!-- WINDOW (Right Wall) -->
+  <g transform="translate(1000, 80)" filter="url(#dropShadow)">
+    <!-- Window Frame Back -->
+    <rect x="-10" y="-10" width="340" height="420" rx="12" fill="#ffffff" />
+    <!-- Sky / View -->
+    <rect width="320" height="400" rx="6" fill="url(#windowSky)" />
+    <!-- Distant hills/trees out the window -->
+    <path d="M 0 350 Q 80 310 160 340 T 320 310 L 320 400 L 0 400 Z" fill="#bbf7d0" opacity="0.7" />
+    <path d="M 40 370 Q 140 330 240 360 T 320 340 L 320 400 L 0 400 Z" fill="#86efac" />
+    <!-- Window Panels Frame -->
+    <line x1="160" y1="0" x2="160" y2="400" stroke="#ffffff" stroke-width="6" />
+    <line x1="0" y1="200" x2="320" y2="200" stroke="#ffffff" stroke-width="6" />
+  </g>
+
+  <!-- CORKBOARD (Left Wall) -->
+  <g transform="translate(100, 100)" filter="url(#dropShadow)">
+    <!-- Wooden board border -->
+    <rect x="-8" y="-8" width="366" height="236" rx="8" fill="#a16207" />
+    <!-- Cork area -->
+    <rect width="350" height="220" rx="4" fill="#d97706" opacity="0.65" />
+    <!-- Post-it Notes -->
+    <!-- Note 1: Welcome -->
+    <rect x="25" y="30" width="70" height="70" fill="#fef08a" transform="rotate(-3, 60, 65)" />
+    <text x="35" y="65" font-family="sans-serif" font-size="10" fill="#a16207" transform="rotate(-3, 60, 65)">Welcome! 😊</text>
+    <!-- Note 2: Checklist -->
+    <rect x="120" y="25" width="90" height="90" fill="#bae6fd" transform="rotate(2, 165, 70)" />
+    <text x="130" y="50" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0369a1" transform="rotate(2, 165, 70)">ONBOARDING</text>
+    <text x="130" y="70" font-family="sans-serif" font-size="8" fill="#0369a1" transform="rotate(2, 165, 70)">☐ Contrato</text>
+    <text x="130" y="85" font-family="sans-serif" font-size="8" fill="#0369a1" transform="rotate(2, 165, 70)">☐ Inducción</text>
+    <!-- Note 3: HR tag -->
+    <rect x="240" y="40" width="70" height="60" fill="#fbcfe8" transform="rotate(-6, 275, 70)" />
+    <text x="250" y="75" font-family="sans-serif" font-size="12" font-weight="bold" fill="#be185d" transform="rotate(-6, 275, 70)">HR TEAM</text>
+    <!-- Note 4: Coffee reminder -->
+    <rect x="50" y="125" width="80" height="70" fill="#bbf7d0" transform="rotate(4, 90, 160)" />
+    <text x="60" y="155" font-family="sans-serif" font-size="9" fill="#15803d" transform="rotate(4, 90, 160)">Hora de café</text>
+    <text x="60" y="170" font-family="sans-serif" font-size="9" fill="#15803d" transform="rotate(4, 90, 160)">con Interns!☕</text>
+  </g>
+
+  <!-- POTTED PLANT (Left Corner) -->
+  <g transform="translate(180, 520)" filter="url(#dropShadow)">
+    <!-- Pot -->
+    <path d="M 10 90 L 70 90 L 80 150 L 0 150 Z" fill="#94a3b8" />
+    <ellipse cx="40" cy="90" rx="30" ry="8" fill="#64748b" />
+    <!-- Soil -->
+    <ellipse cx="40" cy="90" rx="27" ry="6" fill="#451a03" />
+    <!-- Leaves -->
+    <!-- Leaf 1 -->
+    <path d="M 40 90 Q 5 20 30 -30 Q 55 10 40 90" fill="#15803d" />
+    <path d="M 40 90 Q 15 25 30 -30" stroke="#166534" stroke-width="1.5" fill="none" />
+    <!-- Leaf 2 -->
+    <path d="M 40 90 Q 75 10 50 -40 Q 25 20 40 90" fill="#166534" />
+    <!-- Leaf 3 (smaller front) -->
+    <path d="M 40 90 Q 10 50 -10 20 Q 10 35 40 90" fill="#22c55e" />
+    <!-- Leaf 4 (right lean) -->
+    <path d="M 40 90 Q 90 60 100 30 Q 70 45 40 90" fill="#1bb150" />
+    <!-- Leaf 5 (tall background) -->
+    <path d="M 40 90 Q 30 -10 10 -60 Q -10 -10 40 90" fill="#14532d" />
+  </g>
+
+  <!-- HR RECRUITER DESK (Right Corner, extends inwards) -->
+  <g transform="translate(850, 480)" filter="url(#dropShadow)">
+    <!-- Desk Drawer Cabinet / Leg -->
+    <rect x="420" y="100" width="120" height="240" fill="#cbd5e1" />
+    <line x1="420" y1="180" x2="540" y2="180" stroke="#94a3b8" stroke-width="1.5" />
+    <line x1="420" y1="260" x2="540" y2="260" stroke="#94a3b8" stroke-width="1.5" />
+    <circle cx="480" cy="140" r="5" fill="#475569" />
+    <circle cx="480" cy="220" r="5" fill="#475569" />
+    <circle cx="480" cy="300" r="5" fill="#475569" />
+
+    <!-- Left Leg (Sleek Metal) -->
+    <rect x="60" y="100" width="16" height="240" fill="#94a3b8" />
+    <!-- Desk Shadow Base -->
+    <ellipse cx="280" cy="340" rx="240" ry="15" fill="rgba(0, 0, 0, 0.06)" />
+
+    <!-- Desk Surface Board -->
+    <path d="M 0 100 L 560 100 L 560 60 L 30 60 Z" fill="url(#deskGrad)" />
+    <!-- Board Thickness -->
+    <path d="M 0 100 L 560 100 L 560 115 L 0 115 Z" fill="#e2e8f0" />
+    <line x1="0" y1="115" x2="560" y2="115" stroke="#cbd5e1" stroke-width="1.5" />
+
+    <!-- LAPTOP (On Desk) -->
+    <g transform="translate(180, 20)">
+      <!-- Base keyboard plate -->
+      <polygon points="20,50 140,50 155,75 5,75" fill="#94a3b8" />
+      <polygon points="22,51 138,51 148,72 12,72" fill="#cbd5e1" />
+      <!-- Trackpad -->
+      <rect x="65" y="65" width="30" height="6" rx="1" fill="#94a3b8" />
+      <!-- Laptop Screen (Open) -->
+      <polygon points="30,-20 130,-20 140,50 20,50" fill="#475569" />
+      <polygon points="34,-16 126,-16 136,47 24,47" fill="#f0fdf4" />
+      <!-- Small HR screen sticker -->
+      <rect x="70" y="10" width="20" height="15" rx="2" fill="#86efac" opacity="0.6" />
+      <text x="73" y="21" font-family="sans-serif" font-weight="bold" font-size="7" fill="#166534">HR</text>
+    </g>
+
+    <!-- ONBOARDING BINDER (On Desk) -->
+    <g transform="translate(60, 45)">
+      <!-- Binder Folder (Isometric Flat) -->
+      <polygon points="0,15 45,5 90,20 40,32" fill="#2dd4bf" />
+      <polygon points="40,32 90,20 90,28 40,40" fill="#0d9488" />
+      <polygon points="0,15 40,32 40,40 0,23" fill="#115e59" />
+      <!-- Label strip -->
+      <polygon points="45,16 65,11 75,14 55,20" fill="#ffffff" />
+      <text x="50" y="18" font-family="sans-serif" font-size="5" font-weight="bold" fill="#115e59" transform="rotate(13, 50, 18)">INFO</text>
+    </g>
+
+    <!-- COFFEE MUG (On Desk) -->
+    <g transform="translate(360, 45)">
+      <rect x="0" y="0" width="20" height="26" rx="4" fill="#a855f7" />
+      <ellipse cx="10" cy="0" rx="10" ry="3" fill="#c084fc" />
+      <!-- Mug Handle -->
+      <path d="M 20 6 Q 26 6 26 13 Q 26 20 20 20" fill="none" stroke="#a855f7" stroke-width="3" />
+      <!-- Steam -->
+      <path d="M 6 -8 Q 10 -15 6 -22" fill="none" stroke="#e9d5ff" stroke-width="1.5" opacity="0.7" />
+      <path d="M 12 -6 Q 16 -12 12 -18" fill="none" stroke="#e9d5ff" stroke-width="1.5" opacity="0.7" />
+    </g>
+  </g>
+
+  <!-- INTERVIEW CHAIR (Left Side, Cozy Armchair) -->
+  <g transform="translate(480, 520)" filter="url(#dropShadow)">
+    <!-- Shadows on floor -->
+    <ellipse cx="80" cy="220" rx="70" ry="12" fill="rgba(0, 0, 0, 0.08)" />
+
+    <!-- Metal Legs (Swivel star base) -->
+    <line x1="80" y1="160" x2="30" y2="215" stroke="#64748b" stroke-width="6" stroke-linecap="round" />
+    <line x1="80" y1="160" x2="130" y2="215" stroke="#64748b" stroke-width="6" stroke-linecap="round" />
+    <line x1="80" y1="160" x2="80" y2="225" stroke="#475569" stroke-width="8" stroke-linecap="round" />
+    <!-- Wheels -->
+    <circle cx="30" cy="218" r="7" fill="#1e293b" />
+    <circle cx="130" cy="218" r="7" fill="#1e293b" />
+    <circle cx="80" cy="228" r="7" fill="#1e293b" />
+
+    <!-- Main Shell Cushion (Soft Teal/Green) -->
+    <!-- Arm/Back Shell -->
+    <path d="M 10 60 C 10 10, 150 10, 150 60 C 150 100, 160 160, 140 160 C 120 160, 120 120, 80 120 C 40 120, 40 160, 20 160 C 0 160, 10 100, 10 60 Z" fill="#0d9488" />
+    <!-- Inner cushion -->
+    <path d="M 22 70 C 22 30, 138 30, 138 70 C 138 115, 115 140, 80 140 C 45 140, 22 115, 22 70 Z" fill="#2dd4bf" />
+    <!-- Seat pillow -->
+    <rect x="25" y="105" width="110" height="30" rx="10" fill="#0d9488" />
+    <rect x="27" y="107" width="106" height="22" rx="8" fill="#14b8a6" />
+  </g>
+
+  <!-- Room perspective corners styling lines -->
+  <line x1="0" y1="585" x2="1440" y2="585" stroke="#94a3b8" stroke-width="1.5" opacity="0.3" />
+</svg>

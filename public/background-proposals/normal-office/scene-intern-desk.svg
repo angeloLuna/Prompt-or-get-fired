@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%">
+  <defs>
+    <!-- Wall gradient (Cozy playful blue-violet startup vibes) -->
+    <linearGradient id="wallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff" />
+      <stop offset="100%" stop-color="#e0f2fe" />
+    </linearGradient>
+    <!-- Pine Wood Floor -->
+    <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.65" />
+    </linearGradient>
+    <!-- Pine Wood desk board -->
+    <linearGradient id="pineDesk" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-opacity="0.06" />
+    </filter>
+  </defs>
+
+  <!-- Wall -->
+  <rect width="1440" height="580" fill="url(#wallGrad)" />
+
+  <!-- Baseboard -->
+  <rect y="565" width="1440" height="15" fill="#bae6fd" />
+
+  <!-- Wooden Floor (Pine planks) -->
+  <rect y="580" width="1440" height="320" fill="url(#floorGrad)" />
+  <!-- Plank lines -->
+  <path d="M 0 660 L 1440 660 M 0 740 L 1440 740 M 0 820 L 1440 820 M 0 900 L 1440 900" stroke="#f59e0b" stroke-opacity="0.4" stroke-width="1.5" />
+  <path d="M 150 580 L 150 660 M 750 580 L 750 660 M 400 660 L 400 740 M 1100 660 L 1100 740 M 200 740 L 200 820 M 800 740 L 800 820 M 500 820 L 500 900 M 1200 820 L 1200 900" stroke="#f59e0b" stroke-opacity="0.4" stroke-width="1.5" />
+
+  <!-- WHITEBOARD WITH DRAWINGS & CALENDAR (Left Wall) -->
+  <g transform="translate(80, 80)" filter="url(#dropShadow)">
+    <rect x="-4" y="-4" width="308" height="208" rx="4" fill="#cbd5e1" />
+    <rect width="300" height="200" rx="2" fill="#ffffff" />
+    <!-- Grid Calendar representation -->
+    <text x="15" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#475569">INTERN TASKS &amp; SCHEDULE</text>
+    <line x1="15" y1="35" x2="285" y2="35" stroke="#e2e8f0" stroke-width="1" />
+    <!-- Calendar boxes mockup -->
+    <rect x="15" y="45" width="130" height="135" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.5" />
+    <text x="20" y="60" font-family="sans-serif" font-size="7" fill="#64748b">WEEK 1</text>
+    <line x1="20" y1="70" x2="135" y2="70" stroke="#cbd5e1" stroke-width="0.5" />
+    <rect x="25" y="80" width="30" height="20" fill="#dbeafe" rx="2" />
+    <text x="27" y="92" font-family="sans-serif" font-size="5" fill="#1e40af">Day 1: Intro</text>
+    <rect x="60" y="80" width="30" height="20" fill="#fee2e2" rx="2" />
+    <text x="62" y="92" font-family="sans-serif" font-size="5" fill="#991b1b">Crisis! 🚨</text>
+    
+    <!-- Cartoon drawing of a cute banana mascot -->
+    <g transform="translate(180, 60)" opacity="0.8">
+      <rect x="0" y="0" width="100" height="110" fill="#fffbeb" stroke="#fef08a" stroke-width="1" />
+      <path d="M 30 75 Q 35 30 55 20 Q 75 30 80 75" fill="none" stroke="#eab308" stroke-width="4" stroke-linecap="round" />
+      <circle cx="48" cy="45" r="2" fill="#000" />
+      <circle cx="62" cy="45" r="2" fill="#000" />
+      <path d="M 50 55 Q 55 60 60 55" fill="none" stroke="#000" stroke-width="1.5" />
+      <text x="35" y="100" font-family="sans-serif" font-size="7" fill="#ca8a04">"PROMPT OR FIRE!"</text>
+    </g>
+  </g>
+
+  <!-- BACKPACK (Leaning on floor, bottom-left) -->
+  <g transform="translate(480, 560)" filter="url(#dropShadow)">
+    <ellipse cx="60" cy="200" rx="45" ry="10" fill="rgba(0, 0, 0, 0.1)" />
+    <!-- Main Backpack shape (Cute purple backpack) -->
+    <path d="M 15 110 C 15 50, 105 50, 105 110 L 110 200 L 10 200 Z" fill="#7c3aed" />
+    <!-- Front pocket -->
+    <rect x="25" y="140" width="70" height="55" rx="10" fill="#a78bfa" />
+    <!-- Zipper details -->
+    <path d="M 30 140 Q 60 135 90 140" fill="none" stroke="#4c1d95" stroke-width="3" />
+    <path d="M 20 110 C 20 65, 100 65, 100 110" fill="none" stroke="#4c1d95" stroke-width="3.5" />
+    <!-- Hanging keychain -->
+    <circle cx="20" cy="138" r="8" fill="#fcd34d" />
+    <path d="M 20 138 L 18 141 L 22 141 Z" fill="#b45309" />
+  </g>
+
+  <!-- INTERN WELCOME DESK (Left side, extending past center) -->
+  <g transform="translate(620, 500)" filter="url(#dropShadow)">
+    <!-- Shadow on floor -->
+    <ellipse cx="320" cy="280" rx="300" ry="20" fill="rgba(0, 0, 0, 0.08)" />
+
+    <!-- Sleek wooden legs -->
+    <rect x="50" y="90" width="20" height="230" fill="#b45309" />
+    <rect x="530" y="90" width="20" height="230" fill="#b45309" />
+
+    <!-- Pine Wood Board Surface -->
+    <path d="M 0 90 L 580 90 L 550 40 L 30 40 Z" fill="url(#pineDesk)" />
+    <!-- Front depth board -->
+    <path d="M 0 90 L 580 90 L 580 106 L 0 106 Z" fill="#d97706" />
+
+    <!-- STACK OF TEXTBOOKS (On Desk) -->
+    <g transform="translate(70, -10)">
+      <!-- AI 101 Book -->
+      <polygon points="0,30 60,18 100,28 40,40" fill="#ef4444" />
+      <polygon points="40,40 100,28 100,34 40,46" fill="#b91c1c" />
+      <polygon points="0,30 40,40 40,46 0,36" fill="#991b1b" />
+      <text x="44" y="33" font-family="sans-serif" font-size="6" font-weight="bold" fill="#ffffff" transform="rotate(11, 44, 33)">AI 101</text>
+
+      <!-- PROMPTING Book (Stacked on top) -->
+      <g transform="translate(8, -12)">
+        <polygon points="0,30 60,18 100,28 40,40" fill="#3b82f6" />
+        <polygon points="40,40 100,28 100,34 40,46" fill="#1d4ed8" />
+        <polygon points="0,30 40,40 40,46 0,36" fill="#1e3a8a" />
+        <text x="35" y="32" font-family="sans-serif" font-size="5" font-weight="bold" fill="#ffffff" transform="rotate(11, 35, 32)">PROMPTING</text>
+      </g>
+    </g>
+
+    <!-- WELCOME MANUAL BINDER (On Desk) -->
+    <g transform="translate(190, 42)">
+      <polygon points="0,15 65,5 110,20 45,30" fill="#ec4899" />
+      <polygon points="45,30 110,20 110,24 45,34" fill="#be185d" />
+      <polygon points="0,15 45,30 45,34 0,19" fill="#9d174d" />
+      <text x="36" y="20" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#ffffff" transform="rotate(12, 36, 20)">WELCOME MANUAL</text>
+    </g>
+
+    <!-- LAPTOP WITH CUTE STICKERS (On Desk) -->
+    <g transform="translate(320, 10)">
+      <!-- Base keyboard -->
+      <polygon points="15,50 120,50 135,74 0,74" fill="#cbd5e1" />
+      <polygon points="16,51 119,51 129,71 6,71" fill="#e2e8f0" />
+      <!-- Trackpad -->
+      <rect x="58" y="65" width="24" height="5" rx="1" fill="#cbd5e1" />
+      
+      <!-- Laptop Screen (Open, showing terminal/code) -->
+      <polygon points="25,-20 110,-20 120,50 15,50" fill="#334155" />
+      <polygon points="28,-17 107,-17 117,47 18,47" fill="#090d16" />
+      <!-- Cursor -->
+      <rect x="25" y="0" width="3" height="6" fill="#10b981" />
+      <text x="25" y="25" font-family="monospace" font-size="6" fill="#10b981">ready_</text>
+
+      <!-- STICKERS ON THE LAPTOP OUTER BEZEL (visible on backing/sides) -->
+      <!-- We can place a post-it on screen border -->
+      <rect x="110" y="-10" width="16" height="16" fill="#fef08a" transform="rotate(5, 118, -2)" />
+      <text x="112" y="-1" font-family="sans-serif" font-size="4.5" fill="#ca8a04" font-weight="bold" transform="rotate(5, 118, -2)">HELP!</text>
+      
+      <rect x="12" y="-2" width="18" height="15" fill="#bae6fd" transform="rotate(-6, 21, 5)" />
+      <text x="14" y="8" font-family="sans-serif" font-size="4" fill="#0369a1" transform="rotate(-6, 21, 5)">SVEN ☕</text>
+    </g>
+
+    <!-- GLASS OF WATER (On Desk) -->
+    <g transform="translate(490, 40)">
+      <!-- Cylinder glass -->
+      <rect x="0" y="0" width="16" height="24" rx="2" fill="none" stroke="#94a3b8" stroke-width="1.5" />
+      <!-- Water level -->
+      <rect x="1.5" y="8" width="13" height="14" rx="1" fill="#bae6fd" opacity="0.6" />
+      <!-- Ellipse top water -->
+      <ellipse cx="8" cy="8" rx="6.5" ry="1.5" fill="#93c5fd" opacity="0.8" />
+    </g>
+  </g>
+
+  <!-- SIMPLE OFFICE CHAIR (Small Swivel stool/chair) -->
+  <g transform="translate(860, 520)" filter="url(#dropShadow)">
+    <ellipse cx="60" cy="220" rx="55" ry="10" fill="rgba(0, 0, 0, 0.1)" />
+    <!-- Legs -->
+    <path d="M 60 160 L 20 215 M 60 160 L 100 215 M 60 160 L 60 220" stroke="#64748b" stroke-width="5" stroke-linecap="round" />
+    <circle cx="20" cy="217" r="6" fill="#1e293b" />
+    <circle cx="100" cy="217" r="6" fill="#1e293b" />
+    <circle cx="60" cy="222" r="6" fill="#1e293b" />
+    <rect x="54" y="110" width="12" height="60" fill="#475569" />
+
+    <!-- Cute little green rounded backrest -->
+    <rect x="25" y="30" width="70" height="55" rx="20" fill="#10b981" stroke="#047857" stroke-width="2" />
+    <rect x="35" y="40" width="50" height="35" rx="15" fill="#34d399" />
+    <!-- Seat Cushion -->
+    <rect x="20" y="105" width="80" height="20" rx="8" fill="#047857" />
+  </g>
+</svg>

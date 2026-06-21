@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%">
+  <defs>
+    <!-- Wall gradient (Deep luxurious corporate navy) -->
+    <linearGradient id="wallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <!-- Floor gradient (Polished marble/dark wood flooring) -->
+    <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f1610" />
+      <stop offset="100%" stop-color="#0f0b08" />
+    </linearGradient>
+    <!-- Sunset skyline out window -->
+    <linearGradient id="sunsetSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdba74" />
+      <stop offset="50%" stop-color="#f87171" />
+      <stop offset="100%" stop-color="#be185d" />
+    </linearGradient>
+    <!-- Mahogany Executive desk -->
+    <linearGradient id="mahoganyDesk" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f" />
+      <stop offset="100%" stop-color="#451a03" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-opacity="0.1" />
+    </filter>
+  </defs>
+
+  <!-- Wall -->
+  <rect width="1440" height="580" fill="url(#wallGrad)" />
+
+  <!-- Baseboard (Polished Gold Trim) -->
+  <rect y="565" width="1440" height="15" fill="#ca8a04" />
+
+  <!-- Floor (Polished Marble/Teak Wood) -->
+  <rect y="580" width="1440" height="320" fill="url(#floorGrad)" />
+  <!-- Gloss reflections on floor -->
+  <ellipse cx="400" cy="680" rx="350" ry="8" fill="rgba(253, 186, 116, 0.03)" />
+  <ellipse cx="1000" cy="740" rx="300" ry="6" fill="rgba(253, 186, 116, 0.02)" />
+
+  <!-- TEAK FLOOR PLANK LINES -->
+  <path d="M 0 660 L 1440 660 M 0 750 L 1440 750 M 0 840 L 1440 840" stroke="#2e2017" stroke-width="1.5" />
+  <line x1="300" y1="580" x2="150" y2="900" stroke="#2e2017" stroke-width="1.5" />
+  <line x1="800" y1="580" x2="700" y2="900" stroke="#2e2017" stroke-width="1.5" />
+  <line x1="1200" y1="580" x2="1300" y2="900" stroke="#2e2017" stroke-width="1.5" />
+
+  <!-- FLOOR-TO-CEILING PENTHOUSE WINDOW (Left Background) -->
+  <g transform="translate(80, 0)">
+    <!-- Window Frame Backing -->
+    <rect x="-8" y="0" width="466" height="565" fill="#ca8a04" opacity="0.4" />
+    <rect width="450" height="565" fill="url(#sunsetSky)" />
+
+    <!-- Skyline Silhouette (Cyberpunk skyscrapers under warm sky) -->
+    <!-- Tower 1 -->
+    <rect x="30" y="280" width="70" height="285" fill="#4c0519" opacity="0.8" />
+    <polygon points="30,280 65,230 100,280" fill="#4c0519" opacity="0.8" />
+    <!-- Window dot lights on towers -->
+    <circle cx="50" cy="320" r="1.5" fill="#fef08a" opacity="0.6" />
+    <circle cx="50" cy="350" r="1.5" fill="#fef08a" opacity="0.6" />
+    <circle cx="80" cy="320" r="1.5" fill="#fef08a" opacity="0.6" />
+    <circle cx="80" cy="350" r="1.5" fill="#fef08a" opacity="0.6" />
+
+    <!-- Tower 2 (Tall spike) -->
+    <rect x="130" y="150" width="80" height="415" fill="#310b14" />
+    <line x1="170" y1="150" x2="170" y2="80" stroke="#310b14" stroke-width="3" />
+    <!-- Windows -->
+    <rect x="145" y="180" width="8" height="15" fill="#fdba74" opacity="0.8" />
+    <rect x="160" y="180" width="8" height="15" fill="#fdba74" opacity="0.8" />
+    <rect x="175" y="180" width="8" height="15" fill="#fdba74" opacity="0.8" />
+    <rect x="190" y="180" width="8" height="15" fill="#fdba74" opacity="0.8" />
+    <rect x="145" y="220" width="8" height="15" fill="#fdba74" opacity="0.8" />
+    <rect x="160" y="220" width="8" height="15" fill="#fdba74" opacity="0.8" />
+    <rect x="175" y="220" width="8" height="15" fill="#fdba74" opacity="0.8" />
+    <rect x="190" y="220" width="8" height="15" fill="#fdba74" opacity="0.8" />
+
+    <!-- Tower 3 (Right behind) -->
+    <rect x="250" y="320" width="90" height="245" fill="#4c0519" opacity="0.75" />
+    <!-- Tower 4 (Farthest back silhouette) -->
+    <rect x="360" y="380" width="60" height="185" fill="#900c3f" opacity="0.5" />
+
+    <!-- Sleek Window Frame Dividers -->
+    <line x1="150" y1="0" x2="150" y2="565" stroke="#1e293b" stroke-width="8" />
+    <line x1="300" y1="0" x2="300" y2="565" stroke="#1e293b" stroke-width="8" />
+    <line x1="0" y1="400" x2="450" y2="400" stroke="#1e293b" stroke-width="8" />
+  </g>
+
+  <!-- MINIMALIST GOLD PAINTING (Right Wall) -->
+  <g transform="translate(1080, 80)" filter="url(#dropShadow)">
+    <rect x="-6" y="-6" width="232" height="232" rx="4" fill="#ca8a04" />
+    <rect width="220" height="220" fill="#1e293b" />
+    <!-- Abstract brush gold arc -->
+    <path d="M 40 180 C 40 100, 100 40, 180 40" fill="none" stroke="#ca8a04" stroke-width="12" stroke-linecap="round" />
+    <circle cx="150" cy="130" r="25" fill="#be185d" />
+  </g>
+
+  <!-- FIDDLE LEAF FIG PLANT (Right Corner) -->
+  <g transform="translate(1220, 440)" filter="url(#dropShadow)">
+    <!-- Elegant gold hexagonal pot -->
+    <polygon points="20,100 80,100 90,170 10,170" fill="#ca8a04" />
+    <polygon points="20,100 50,100 45,170 10,170" fill="#eab308" />
+    <!-- Plant stem -->
+    <path d="M 50 100 L 50 -80" stroke="#1c1917" stroke-width="6" fill="none" />
+    <path d="M 50 20 Q 20 -20 10 -40" stroke="#1c1917" stroke-width="4" fill="none" />
+    <path d="M 50 -10 Q 80 -40 90 -60" stroke="#1c1917" stroke-width="4" fill="none" />
+
+    <!-- Broad flat green leaves -->
+    <!-- Leaf 1 (top) -->
+    <ellipse cx="50" cy="-90" rx="20" ry="30" fill="#14532d" transform="rotate(-5, 50, -90)" />
+    <!-- Leaf 2 (left) -->
+    <ellipse cx="10" cy="-45" rx="35" ry="22" fill="#166534" transform="rotate(-20, 10, -45)" />
+    <!-- Leaf 3 (right) -->
+    <ellipse cx="90" cy="-65" rx="38" ry="24" fill="#15803d" transform="rotate(30, 90, -65)" />
+    <!-- Leaf 4 (middle left) -->
+    <ellipse cx="20" cy="-10" rx="32" ry="20" fill="#166534" transform="rotate(-10, 20, -10)" />
+    <!-- Leaf 5 (front bottom) -->
+    <ellipse cx="75" cy="15" rx="35" ry="22" fill="#1b5e20" transform="rotate(15, 75, 15)" />
+  </g>
+
+  <!-- CEO EXECUTIVE DESK (Mahogany & Gold base - positioned right, extending into center) -->
+  <g transform="translate(680, 500)" filter="url(#dropShadow)">
+    <!-- Shadows -->
+    <ellipse cx="320" cy="300" rx="280" ry="15" fill="rgba(0, 0, 0, 0.12)" />
+
+    <!-- Gold supporting side boards (Sleek frame) -->
+    <polygon points="50,90 80,90 60,300 20,300" fill="#ca8a04" />
+    <polygon points="550,90 580,90 560,300 520,300" fill="#ca8a04" />
+
+    <!-- Mahogany solid table board -->
+    <path d="M 0 90 L 600 90 L 570 40 L 30 40 Z" fill="url(#mahoganyDesk)" />
+    <!-- Front board depth/gold plate accent -->
+    <path d="M 0 90 L 600 90 L 600 108 L 0 108 Z" fill="#451a03" />
+    <rect x="80" y="100" width="440" height="4" fill="#ca8a04" />
+
+    <!-- GOLD LOGO SIGNPLATE (On desk front) -->
+    <g transform="translate(240, 55)">
+      <polygon points="20,10 100,10 90,32 10,32" fill="#1e293b" stroke="#ca8a04" stroke-width="1" />
+      <text x="30" y="24" font-family="sans-serif" font-size="7" font-weight="bold" fill="#ca8a04" letter-spacing="1">BANANO CORP</text>
+    </g>
+
+    <!-- PREMIUM COFFEE MUG (Gold handle ceramic) -->
+    <g transform="translate(120, 20)">
+      <rect width="20" height="26" rx="4" fill="#1e293b" stroke="#ca8a04" stroke-width="1" />
+      <ellipse cx="10" cy="0" rx="10" ry="3" fill="#ca8a04" />
+      <path d="M 20 6 Q 25 6 25 13 Q 25 20 20 20" fill="none" stroke="#ca8a04" stroke-width="2" />
+    </g>
+  </g>
+
+  <!-- LUXURIOUS LEATHER HIGH-BACK CHAIR (Center-Left) -->
+  <g transform="translate(460, 480)" filter="url(#dropShadow)">
+    <!-- Base wheels mechanism -->
+    <ellipse cx="80" cy="245" rx="65" ry="12" fill="rgba(0, 0, 0, 0.15)" />
+    <path d="M 80 180 L 25 240 M 80 180 L 135 240 M 80 180 L 80 250" stroke="#ca8a04" stroke-width="6" stroke-linecap="round" />
+    <circle cx="25" cy="242" r="7" fill="#0f172a" />
+    <circle cx="135" cy="242" r="7" fill="#0f172a" />
+    <circle cx="80" cy="252" r="7" fill="#0f172a" />
+    
+    <rect x="72" y="140" width="16" height="50" fill="#475569" />
+
+    <!-- Executive high backrest shell -->
+    <path d="M 20 10 C 20 -20, 140 -20, 140 10 L 130 140 L 30 140 Z" fill="#1e1b4b" stroke="#ca8a04" stroke-width="3.5" />
+    <!-- Cushioned leather pads (Gold trim stitching design) -->
+    <rect x="35" y="-5" width="90" height="30" rx="8" fill="#111827" />
+    <rect x="32" y="35" width="96" height="40" rx="8" fill="#111827" />
+    <rect x="32" y="85" width="96" height="45" rx="8" fill="#111827" />
+
+    <!-- Seat cushion pillow -->
+    <rect x="20" y="125" width="120" height="32" rx="10" fill="#111827" stroke="#ca8a04" stroke-width="2" />
+
+    <!-- Armrests (sleek curved curves) -->
+    <path d="M 15 70 Q 5 70 5 110 L 22 135" fill="none" stroke="#ca8a04" stroke-width="5" stroke-linecap="round" />
+    <path d="M 145 70 Q 155 70 155 110 L 138 135" fill="none" stroke="#ca8a04" stroke-width="5" stroke-linecap="round" />
+  </g>
+</svg>

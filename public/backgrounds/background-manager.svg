@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a0509" />
+      <stop offset="100%" stop-color="#040204" />
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a0815" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#0f050b" stop-opacity="0.6" />
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Base Dark Background -->
+  <rect width="1440" height="900" fill="url(#bgGrad)" />
+
+  <!-- Center Spotlight Glow -->
+  <circle cx="720" cy="450" r="500" fill="url(#centerGlow)" />
+
+  <!-- Grid overlay in red -->
+  <path d="M 0 0 L 1440 0 M 0 90 L 1440 90 M 0 180 L 1440 180 M 0 270 L 1440 270 M 0 360 L 1440 360 M 0 450 L 1440 450 M 0 540 L 1440 540 M 0 630 L 1440 630 M 0 720 L 1440 720 M 0 810 L 1440 810" fill="none" stroke="rgba(239, 68, 68, 0.03)" strokeWidth="1" />
+  <path d="M 0 0 L 0 900 M 144 0 L 144 900 M 288 0 L 288 900 M 432 0 L 432 900 M 576 0 L 576 900 M 720 0 L 720 900 M 864 0 L 864 900 M 1008 0 L 1008 900 M 1152 0 L 1152 900 M 1296 0 L 1296 900" fill="none" stroke="rgba(239, 68, 68, 0.03)" strokeWidth="1" />
+
+  <!-- Red ambient light leaks -->
+  <path d="M 100 -50 L -100 400" fill="none" stroke="#f43f5e" strokeWidth="4" opacity="0.1" />
+  <path d="M 1300 800 L 1500 400" fill="none" stroke="#ef4444" strokeWidth="3" opacity="0.08" />
+
+  <!-- LEFT SIDE: Kanban Board (Tickets pending & overdue) -->
+  <g id="kanban-board" transform="translate(80, 160)">
+    <!-- Board Base Card -->
+    <rect x="0" y="0" width="340" height="420" rx="16" fill="url(#panelGrad)" stroke="rgba(239, 68, 68, 0.25)" strokeWidth="1.5" />
+    <rect x="0" y="0" width="340" height="420" rx="16" fill="none" stroke="rgba(249, 115, 22, 0.15)" strokeWidth="1" />
+
+    <text x="25" y="40" fill="#f97316" fontSize="14" fontFamily="monospace" fontWeight="bold" letter-spacing="1">PROJECT_BOARD: BANANO_CS</text>
+    <line x1="25" y1="55" x2="315" y2="55" stroke="rgba(239, 68, 68, 0.2)" strokeWidth="1.5" />
+
+    <!-- Columns Header -->
+    <text x="25" y="80" fill="#64748b" fontSize="10" fontFamily="monospace" fontWeight="bold">TO_DO</text>
+    <text x="135" y="80" fill="#64748b" fontSize="10" fontFamily="monospace" fontWeight="bold">IN_PROGRESS</text>
+    <text x="255" y="80" fill="#ef4444" fontSize="10" fontFamily="monospace" fontWeight="bold">OVERDUE</text>
+
+    <!-- Column lines -->
+    <line x1="120" y1="70" x2="120" y2="390" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+    <line x1="240" y1="70" x2="240" y2="390" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+
+    <!-- Kanban Card: To Do 1 -->
+    <g transform="translate(20, 100)">
+      <rect x="0" y="0" width="85" height="50" rx="4" fill="rgba(15,23,42,0.6)" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+      <text x="8" y="18" fill="#64748b" fontSize="8" fontFamily="monospace">BAN-209</text>
+      <text x="8" y="32" fill="#dfe2ef" fontSize="9" fontFamily="sans-serif">System Evals</text>
+    </g>
+
+    <!-- Kanban Card: In Progress 1 -->
+    <g transform="translate(130, 100)">
+      <rect x="0" y="0" width="95" height="50" rx="4" fill="rgba(15,23,42,0.6)" stroke="rgba(249, 115, 22, 0.3)" strokeWidth="1" />
+      <text x="8" y="18" fill="#f97316" fontSize="8" fontFamily="monospace">BAN-110</text>
+      <text x="8" y="32" fill="#dfe2ef" fontSize="9" fontFamily="sans-serif">CS Prompt Fix</text>
+      <!-- Tiny orange status dot -->
+      <circle cx="85" cy="14" r="3" fill="#f97316" />
+    </g>
+
+    <!-- Kanban Card: Overdue 1 (ALERT!) -->
+    <g transform="translate(250, 100)">
+      <rect x="0" y="0" width="75" height="65" rx="4" fill="rgba(239, 68, 68, 0.1)" stroke="#ef4444" strokeWidth="1.5" />
+      <text x="8" y="18" fill="#ef4444" fontSize="8" fontFamily="monospace" fontWeight="bold">CRISIS_D1</text>
+      <text x="8" y="32" fill="#dfe2ef" fontSize="9" fontFamily="sans-serif" fontWeight="bold">DEMO_HOTFIX</text>
+      <!-- Warning warning flashing symbol -->
+      <text x="8" y="48" fill="#ef4444" fontSize="8" fontFamily="monospace" className="animate-pulse">⚠️ OVERDUE</text>
+    </g>
+
+    <!-- Kanban Card: Overdue 2 -->
+    <g transform="translate(250, 180)">
+      <rect x="0" y="0" width="75" height="65" rx="4" fill="rgba(239, 68, 68, 0.05)" stroke="rgba(239, 68, 68, 0.4)" strokeWidth="1" />
+      <text x="8" y="18" fill="#ef4444" fontSize="8" fontFamily="monospace">BAN-054</text>
+      <text x="8" y="32" fill="#64748b" fontSize="9" fontFamily="sans-serif">Halucination</text>
+      <text x="8" y="48" fill="#ef4444" fontSize="8" fontFamily="monospace" opacity="0.6">⚠️ DELAYED</text>
+    </g>
+
+    <!-- Burn-down mini chart summary -->
+    <g transform="translate(20, 270)">
+      <rect x="0" y="0" width="300" height="120" rx="8" fill="#050204" stroke="rgba(239, 68, 68, 0.1)" strokeWidth="1" />
+      <text x="15" y="22" fill="#64748b" fontSize="9" fontFamily="monospace">PROJECT_VELOCITY (SPRINT_03)</text>
+      
+      <!-- Graph Lines -->
+      <line x1="30" y1="95" x2="270" y2="95" stroke="#1f2937" strokeWidth="1.5" />
+      <line x1="30" y1="40" x2="30" y2="95" stroke="#1f2937" strokeWidth="1.5" />
+      
+      <!-- Ideal Line (Dashed) -->
+      <line x1="30" y1="40" x2="260" y2="95" stroke="#64748b" strokeWidth="1" strokeDasharray="4,4" />
+      <!-- Real Burn Line (Steep red drop/crisis) -->
+      <path d="M 30 40 L 80 55 L 140 85 L 200 90 L 260 93" fill="none" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+      
+      <circle cx="140" cy="85" r="4.5" fill="#f97316" />
+      <text x="148" y="82" fill="#f97316" fontSize="8" fontFamily="monospace" fontWeight="bold">D1_CRISIS</text>
+    </g>
+  </g>
+
+  <!-- RIGHT SIDE: Urgent Milestones & Alertas -->
+  <g id="right-dashboard" transform="translate(1020, 180)">
+    <!-- Urgencia Panel -->
+    <rect x="0" y="0" width="340" height="360" rx="16" fill="url(#panelGrad)" stroke="rgba(239, 68, 68, 0.25)" strokeWidth="1.5" />
+    <rect x="0" y="0" width="340" height="360" rx="16" fill="none" stroke="rgba(249, 115, 22, 0.15)" strokeWidth="1" />
+
+    <text x="25" y="40" fill="#ef4444" fontSize="14" fontFamily="monospace" fontWeight="bold" letter-spacing="1">CRITICAL_METRICS</text>
+    <line x1="25" y1="55" x2="315" y2="55" stroke="rgba(239, 68, 68, 0.2)" strokeWidth="1.5" />
+
+    <!-- Alert details -->
+    <g transform="translate(25, 80)">
+      <rect x="0" y="0" width="290" height="70" rx="8" fill="rgba(239, 68, 68, 0.08)" stroke="#ef4444" strokeWidth="1" />
+      <!-- Flashing Red Siren icon -->
+      <circle cx="35" cy="35" r="14" fill="rgba(239,68,68,0.2)" stroke="#ef4444" strokeWidth="1.5" />
+      <path d="M 30 40 L 35 25 L 40 40" fill="none" stroke="#ef4444" strokeWidth="2.5" />
+      <text x="65" y="32" fill="#ffffff" fontSize="12" fontFamily="sans-serif" fontWeight="bold">CLIENT_DEMO_ALERT</text>
+      <text x="65" y="48" fill="#f43f5e" fontSize="10" fontFamily="monospace">CRISIS LEVEL: MAXIMUM</text>
+    </g>
+
+    <!-- Tickets Summary List -->
+    <g transform="translate(25, 175)">
+      <text x="0" y="15" fill="#64748b" fontSize="10" fontFamily="monospace" fontWeight="bold">BURNDOWN_TICKETS</text>
+      
+      <!-- Row 1 -->
+      <g transform="translate(0, 30)">
+        <circle cx="5" cy="5" r="4" fill="#ef4444" />
+        <text x="20" y="9" fill="#dfe2ef" fontSize="11" fontFamily="sans-serif">Demo alucinada en vivo</text>
+        <text x="230" y="9" fill="#ef4444" fontSize="10" fontFamily="monospace">99+ BUGS</text>
+      </g>
+      
+      <!-- Row 2 -->
+      <g transform="translate(0, 60)">
+        <circle cx="5" cy="5" r="4" fill="#f97316" />
+        <text x="20" y="9" fill="#dfe2ef" fontSize="11" fontFamily="sans-serif">Reclamos soporte enterprise</text>
+        <text x="230" y="9" fill="#f97316" fontSize="10" fontFamily="monospace">CS_PEND</text>
+      </g>
+
+      <!-- Row 3 -->
+      <g transform="translate(0, 90)">
+        <circle cx="5" cy="5" r="4" fill="#64748b" opacity="0.5" />
+        <text x="20" y="9" fill="#64748b" fontSize="11" fontFamily="sans-serif">Estabilización temperatura</text>
+        <text x="230" y="9" fill="#64748b" fontSize="10" fontFamily="monospace" opacity="0.6">WAITING</text>
+      </g>
+
+      <!-- Flashing urgency meter -->
+      <g transform="translate(0, 130)">
+        <text x="0" y="10" fill="#64748b" fontSize="9" fontFamily="monospace">SVEN_PATIENCE_METER</text>
+        <rect x="0" y="18" width="290" height="10" rx="5" fill="rgba(255,255,255,0.05)" />
+        <rect x="0" y="18" width="240" height="10" rx="5" fill="#ef4444" />
+        <text x="250" y="10" fill="#ef4444" fontSize="10" fontFamily="monospace" fontWeight="bold">LOW</text>
+      </g>
+    </g>
+  </g>
+</svg>

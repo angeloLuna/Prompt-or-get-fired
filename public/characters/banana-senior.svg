@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="seniorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="70%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#92400e" />
+    </linearGradient>
+    <linearGradient id="hoodieGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#374151" />
+      <stop offset="100%" stop-color="#1f2937" />
+    </linearGradient>
+  </defs>
+
+  <!-- Legs and Shoes -->
+  <g id="legs">
+    <path d="M 220 400 L 210 470 L 195 470" fill="none" stroke="#78350f" strokeWidth="12" strokeLinecap="round" />
+    <path d="M 185 470 C 185 455, 215 455, 215 470 Z" fill="#111827" stroke="#1f2937" strokeWidth="2" />
+
+    <path d="M 270 395 L 285 470 L 305 470" fill="none" stroke="#78350f" strokeWidth="12" strokeLinecap="round" />
+    <path d="M 285 470 C 285 455, 315 455, 315 470 Z" fill="#111827" stroke="#1f2937" strokeWidth="2" />
+  </g>
+
+  <!-- Banana Body (Clearly visible on the sides) -->
+  <g id="banana-body">
+    <!-- Main Banana Body -->
+    <path d="M 270 70 C 240 110, 205 180, 210 290 C 215 360, 240 410, 275 410 C 295 410, 290 350, 280 290 C 270 200, 290 130, 305 70 Z" fill="url(#seniorGrad)" />
+    <path d="M 270 70 C 240 110, 205 180, 210 290 C 215 360, 230 390, 240 370 C 220 280, 235 180, 285 70 Z" fill="#92400e" opacity="0.25" />
+    
+    <!-- Open Peel Flap (Cáscara abierta curling away) -->
+    <path d="M 290 100 C 315 80, 335 100, 340 120 C 320 120, 295 110, 290 100 Z" fill="#eab308" stroke="#d97706" strokeWidth="1.5" />
+    <!-- Inside of open peel (pale yellow) -->
+    <path d="M 290 100 C 305 105, 320 120, 340 120 C 330 110, 310 90, 290 100 Z" fill="#fef9c3" />
+    
+    <!-- Stem (Top Brown Tip, bent/tired looking) -->
+    <path d="M 270 70 L 300 70 L 290 40 L 273 45 Z" fill="#78350f" />
+    <path d="M 273 45 L 290 40 L 286 32 L 275 34 Z" fill="#451a03" />
+
+    <!-- Bottom Tip -->
+    <path d="M 268 408 C 274 411, 278 409, 280 405 C 275 398, 265 400, 263 405 Z" fill="#78350f" stroke="#78350f" strokeWidth="4" />
+  </g>
+
+  <!-- Dark Hoodie Accessory Overlay (Clean front vest structure) -->
+  <g id="hoodie">
+    <!-- Hoodie Torso Body (Slightly narrower than banana width, so yellow contours remain visible) -->
+    <path d="M 216 260 C 212 300, 222 360, 240 372 C 258 375, 268 360, 272 320 C 276 290, 274 270, 272 260 Z" fill="url(#hoodieGrad)" stroke="#1f2937" strokeWidth="2" />
+    
+    <!-- Hoodie Pocket -->
+    <path d="M 226 325 C 226 315, 262 315, 262 325 C 262 345, 226 345, 226 325 Z" fill="#1f2937" stroke="#374151" strokeWidth="1.5" />
+    
+    <!-- Hoodie Drape/Capucha Collar (frontal overlay, inside banana borders) -->
+    <path d="M 218 258 C 222 246, 266 246, 270 258 C 274 270, 214 270, 218 258 Z" fill="#1f2937" />
+    <path d="M 230 268 L 233 292 M 258 268 L 255 292" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" />
+  </g>
+
+  <!-- Sleeves & Arms (Drawn cleanly, hugging the body shape) -->
+  <g id="arms">
+    <!-- Left Sleeve/Arm (Close to the hip) -->
+    <path d="M 215 270 Q 194 285, 206 315" fill="none" stroke="#1f2937" strokeWidth="10" strokeLinecap="round" />
+    <circle cx="206" cy="316" r="6" fill="#d97706" />
+
+    <!-- Right Sleeve/Arm (Hugging the body towards laptop) -->
+    <path d="M 270 268 Q 295 275, 290 300" fill="none" stroke="#1f2937" strokeWidth="10" strokeLinecap="round" />
+    <circle cx="290" cy="301" r="6" fill="#d97706" />
+  </g>
+
+  <!-- Wise/Tired Face (Dark circles, tired eyes, neutral expression) -->
+  <g id="face" transform="translate(10, 15)">
+    <!-- Dark circles under eyes (grayish-purple shadow) -->
+    <ellipse cx="222" cy="216" rx="14" ry="8" fill="#475569" opacity="0.35" />
+    <ellipse cx="276" cy="211" rx="14" ry="8" fill="#475569" opacity="0.35" />
+    
+    <!-- Tired Eyelids (Half-closed horizontal lids) -->
+    <!-- Left Eye -->
+    <path d="M 210 212 L 234 212" stroke="#0f172a" strokeWidth="5" strokeLinecap="round" />
+    <path d="M 213 216 Q 222 222 231 216" fill="none" stroke="#0f172a" strokeWidth="3" />
+    <!-- Right Eye -->
+    <path d="M 264 207 L 288 207" stroke="#0f172a" strokeWidth="5" strokeLinecap="round" />
+    <path d="M 267 211 Q 276 217 285 211" fill="none" stroke="#0f172a" strokeWidth="3" />
+
+    <!-- Eyebrows (Flat, tired) -->
+    <line x1="208" y1="198" x2="234" y2="198" stroke="#78350f" strokeWidth="2.5" strokeLinecap="round" />
+    <line x1="262" y1="193" x2="288" y2="193" stroke="#78350f" strokeWidth="2.5" strokeLinecap="round" />
+
+    <!-- Flat neutral tired mouth -->
+    <line x1="235" y1="232" x2="258" y2="228" stroke="#0f172a" strokeWidth="4.5" strokeLinecap="round" />
+  </g>
+
+  <!-- Large Over-ear Headphones -->
+  <g id="headphones">
+    <!-- Left ear-pad -->
+    <rect x="187" y="195" width="14" height="34" rx="6" fill="#111827" stroke="#374151" strokeWidth="2" transform="rotate(-10, 194, 212)" />
+    <!-- Right ear-pad -->
+    <rect x="282" y="186" width="14" height="34" rx="6" fill="#111827" stroke="#374151" strokeWidth="2" transform="rotate(-10, 289, 203)" />
+    <!-- Thick Headband connecting arch -->
+    <path d="M 193 200 C 185 140, 230 110, 288 120" fill="none" stroke="#111827" strokeWidth="8" strokeLinecap="round" />
+    <path d="M 193 200 C 185 140, 230 110, 288 120" fill="none" stroke="#374151" strokeWidth="3" strokeLinecap="round" />
+  </g>
+
+  <!-- Right Arm holding Glowing Laptop -->
+  <g id="laptop-arm" transform="translate(-10, 0)">
+    <!-- Stylized Mini Laptop -->
+    <g id="laptop" transform="translate(305, 275) rotate(15)">
+      <!-- Screen (opened, casting neon cyan glow) -->
+      <polygon points="-5,0 30,-12 35,-32 0,-20" fill="#0f172a" stroke="#06b6d4" strokeWidth="1.5" />
+      <!-- Glowing cyan display face -->
+      <polygon points="-2,-2 28,-13 32,-28 2,-18" fill="#22d3ee" opacity="0.8" />
+      <!-- Base/Keyboard unit -->
+      <polygon points="-8,2 25,-8 40,4 5,14" fill="#374151" stroke="#1f2937" strokeWidth="1.5" />
+      <!-- Sticker on lid (small purple dot) -->
+      <circle cx="10" cy="-12" r="3.5" fill="#a855f7" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c0a18" />
+      <stop offset="100%" stop-color="#050409" />
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#311042" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.6" />
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Base Dark Background -->
+  <rect width="1440" height="900" fill="url(#bgGrad)" />
+
+  <!-- Center spotlight glow -->
+  <circle cx="720" cy="450" r="500" fill="url(#centerGlow)" />
+
+  <!-- Grid overlay -->
+  <path d="M 0 0 L 1440 0 M 0 90 L 1440 90 M 0 180 L 1440 180 M 0 270 L 1440 270 M 0 360 L 1440 360 M 0 450 L 1440 450 M 0 540 L 1440 540 M 0 630 L 1440 630 M 0 720 L 1440 720 M 0 810 L 1440 810" fill="none" stroke="rgba(168, 85, 247, 0.03)" strokeWidth="1" />
+  <path d="M 0 0 L 0 900 M 144 0 L 144 900 M 288 0 L 288 900 M 432 0 L 432 900 M 576 0 L 576 900 M 720 0 L 720 900 M 864 0 L 864 900 M 1008 0 L 1008 900 M 1152 0 L 1152 900 M 1296 0 L 1296 900" fill="none" stroke="rgba(168, 85, 247, 0.03)" strokeWidth="1" />
+
+  <!-- Colored lines -->
+  <path d="M -100 200 L 300 450" fill="none" stroke="#a855f7" strokeWidth="2.5" opacity="0.08" />
+  <path d="M 1100 800 L 1500 650" fill="none" stroke="#ec4899" strokeWidth="2" opacity="0.08" />
+
+  <!-- LEFT SIDE: Intern Workspace desk objects, post-its, coffee mug -->
+  <g id="desk-left" transform="translate(60, 160)">
+    <!-- Sticky Notes Board -->
+    <rect x="0" y="0" width="340" height="420" rx="16" fill="url(#panelGrad)" stroke="rgba(168, 85, 247, 0.2)" strokeWidth="1.5" />
+    <rect x="0" y="0" width="340" height="420" rx="16" fill="none" stroke="rgba(236, 48, 153, 0.1)" strokeWidth="1" />
+
+    <text x="25" y="40" fill="#a855f7" fontSize="13" fontFamily="monospace" fontWeight="bold" letter-spacing="1">CUBICLE_#4092 // CUTE_CAOS</text>
+    <line x1="25" y1="55" x2="315" y2="55" stroke="rgba(168, 85, 247, 0.2)" strokeWidth="1.5" />
+
+    <!-- Sticky Post-It 1 (Yellow) -->
+    <g transform="translate(25, 80) rotate(-4)">
+      <rect x="0" y="0" width="120" height="100" fill="#fef08a" stroke="#ca8a04" strokeWidth="1" rx="2" />
+      <text x="10" y="25" fill="#854d0e" fontSize="10" fontFamily="sans-serif" fontWeight="bold">APRENDER PROMPTING!</text>
+      <text x="10" y="45" fill="#a16207" fontSize="9" fontFamily="sans-serif">- Criterios de Grounding</text>
+      <text x="10" y="60" fill="#a16207" fontSize="9" fontFamily="sans-serif">- Evitar alucinación</text>
+      <text x="10" y="75" fill="#a16207" fontSize="9" fontFamily="sans-serif">- Usar tags correctos</text>
+    </g>
+
+    <!-- Sticky Post-It 2 (Pink) -->
+    <g transform="translate(175, 90) rotate(5)">
+      <rect x="0" y="0" width="120" height="90" fill="#fbcfe8" stroke="#db2777" strokeWidth="1" rx="2" />
+      <text x="10" y="25" fill="#9d174d" fontSize="10" fontFamily="sans-serif" fontWeight="bold">URGENTE: SVEN</text>
+      <text x="10" y="45" fill="#be185d" fontSize="9" fontFamily="monospace">&gt; No tocar su taza</text>
+      <text x="10" y="60" fill="#be185d" fontSize="9" fontFamily="monospace">&gt; Preguntar antes</text>
+      <text x="10" y="75" fill="#be185d" fontSize="9" fontFamily="monospace">&gt; de subir a prod</text>
+    </g>
+
+    <!-- Sticky Post-It 3 (Teal) -->
+    <g transform="translate(25, 205) rotate(2)">
+      <rect x="0" y="0" width="130" height="90" fill="#ccfbf1" stroke="#0d9488" strokeWidth="1" rx="2" />
+      <text x="10" y="25" fill="#115e59" fontSize="10" fontFamily="sans-serif" fontWeight="bold">CONSEJO PM (Pam)</text>
+      <text x="10" y="45" fill="#134e4a" fontSize="9" fontFamily="sans-serif">¡Definir el éxito!</text>
+      <text x="10" y="60" fill="#134e4a" fontSize="9" fontFamily="sans-serif">No asumir nada.</text>
+    </g>
+
+    <!-- Coffee Mug with question mark sticker -->
+    <g transform="translate(180, 210)">
+      <!-- Handle -->
+      <path d="M 60 40 C 75 40, 75 65, 60 65" fill="none" stroke="#a855f7" strokeWidth="5" />
+      <!-- Mug Body -->
+      <rect x="15" y="25" width="45" height="55" rx="4" fill="#a855f7" />
+      <!-- Question mark icon on mug -->
+      <circle cx="37" cy="50" r="10" fill="#ffffff" opacity="0.8" />
+      <text x="37" y="55" fill="#7e22ce" fontSize="12" fontFamily="sans-serif" fontWeight="bold" text-anchor="middle">?</text>
+    </g>
+
+    <!-- Desktop keyboard / laptop mockup at the bottom -->
+    <g transform="translate(25, 320)">
+      <rect x="0" y="0" width="290" height="70" rx="8" fill="rgba(15,23,42,0.6)" stroke="rgba(168, 85, 247, 0.1)" strokeWidth="1" />
+      <!-- Laptop closed profile -->
+      <rect x="40" y="35" width="210" height="15" rx="3" fill="#334155" />
+      <line x1="40" y1="46" x2="250" y2="46" stroke="#94a3b8" strokeWidth="2" />
+      <ellipse cx="145" cy="20" rx="15" ry="10" fill="#ec4899" opacity="0.3" /> <!-- Cute sticker shape -->
+      <text x="145" y="24" fill="#ffffff" fontSize="6" fontFamily="sans-serif" fontWeight="bold" text-anchor="middle">BANANO</text>
+    </g>
+  </g>
+
+  <!-- RIGHT SIDE: Welcome manual, stickers, onboarding progress -->
+  <g id="desk-right" transform="translate(1040, 180)">
+    <rect x="0" y="0" width="340" height="400" rx="16" fill="url(#panelGrad)" stroke="rgba(168, 85, 247, 0.2)" strokeWidth="1.5" />
+    <rect x="0" y="0" width="340" height="400" rx="16" fill="none" stroke="rgba(236, 48, 153, 0.1)" strokeWidth="1" />
+
+    <text x="25" y="40" fill="#ec4899" fontSize="13" fontFamily="monospace" fontWeight="bold" letter-spacing="1">WELCOME_PACK_D1</text>
+    <line x1="25" y1="55" x2="315" y2="55" stroke="rgba(168, 85, 247, 0.2)" strokeWidth="1.5" />
+
+    <!-- Welcome Booklet Graphic -->
+    <g transform="translate(25, 80)">
+      <rect x="0" y="0" width="130" height="180" rx="6" fill="#1e1b4b" stroke="rgba(236, 48, 153, 0.3)" strokeWidth="1.5" />
+      <!-- Book spine binding -->
+      <rect x="0" y="0" width="10" height="180" rx="2" fill="#ec4899" />
+      <text x="70" y="40" fill="#ffffff" fontSize="9" fontFamily="sans-serif" fontWeight="bold" text-anchor="middle">ONBOARDING</text>
+      <text x="70" y="55" fill="#fcd34d" fontSize="9" fontFamily="sans-serif" fontWeight="bold" text-anchor="middle">MANUAL</text>
+      
+      <!-- Inside graphics: cute banana sketch -->
+      <path d="M 60 100 Q 75 100 70 120" fill="none" stroke="#fcd34d" strokeWidth="4" strokeLinecap="round" />
+      <text x="70" y="150" fill="#64748b" fontSize="7" fontFamily="monospace" text-anchor="middle">BANANO CORP</text>
+    </g>
+
+    <!-- Sticker Album / Notes -->
+    <g transform="translate(175, 80)">
+      <rect x="0" y="0" width="140" height="180" rx="6" fill="rgba(15,23,42,0.4)" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+      <text x="15" y="25" fill="#64748b" fontSize="8" fontFamily="monospace">STICKER_WALL</text>
+      
+      <!-- Sticker 1: Rocket -->
+      <g transform="translate(20, 45)">
+        <polygon points="15,0 30,25 0,25" fill="#ec4899" />
+        <text x="15" y="35" fill="#ffffff" fontSize="6" fontFamily="monospace" text-anchor="middle">TO PROD</text>
+      </g>
+      
+      <!-- Sticker 2: Chibi face -->
+      <g transform="translate(80, 50)">
+        <circle cx="20" cy="20" r="18" fill="#a855f7" opacity="0.6" />
+        <circle cx="13" cy="16" r="2" fill="#ffffff" />
+        <circle cx="27" cy="16" r="2" fill="#ffffff" />
+        <path d="M 15 26 Q 20 32 25 26" fill="none" stroke="#ffffff" strokeWidth="1.5" />
+      </g>
+
+      <!-- Sticker 3: Banano Leaf -->
+      <g transform="translate(20, 110)">
+        <ellipse cx="25" cy="25" rx="20" ry="12" fill="#10b981" transform="rotate(-15, 25, 25)" />
+        <text x="25" y="28" fill="#ffffff" fontSize="6" fontFamily="sans-serif" text-anchor="middle">JUNIOR</text>
+      </g>
+    </g>
+
+    <!-- Terminal diagnostic intern status -->
+    <g transform="translate(25, 280)">
+      <rect x="0" y="0" width="290" height="95" rx="8" fill="#07050d" stroke="rgba(168,85,247,0.1)" strokeWidth="1" />
+      <text x="15" y="25" fill="#a855f7" fontSize="9" fontFamily="monospace">&gt; ONBOARDING_PROGRESS: ACTIVE</text>
+      <text x="15" y="45" fill="#10b981" fontSize="9" fontFamily="monospace">&gt; Task 1 (Onboarding choice): COMPLETED</text>
+      <text x="15" y="65" fill="#f43f5e" fontSize="9" fontFamily="monospace" className="animate-pulse">&gt; ALERT: SVEN PATIENCE REDUCING</text>
+    </g>
+  </g>
+</svg>
