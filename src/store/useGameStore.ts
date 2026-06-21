@@ -25,7 +25,7 @@ export interface GameState {
   nextScene: () => void;
   submitChoice: (choice: Choice, sceneId: string) => void;
   closeFeedback: () => void;
-  submitPrompt: (rubricId: string, text: string) => void;
+  submitPrompt: (rubricId: string, text: string) => Promise<void>;
   advanceFromPrompt: (effects: RubricEvaluation["effects"] | undefined) => void;
   closeRecap: () => void;
   restartCurrentScope: () => void;
@@ -217,17 +217,57 @@ export const useGameStore = create<GameState>((set, get) => ({
     }
   },
 
-  submitPrompt: (rubricId, text) => {
+  submitPrompt: async (rubricId, text) => {
     const rubric = promptRubrics[rubricId];
     if (!rubric) return;
 
-    // Count matched signals
-    let matches = 0;
-    rubric.signals.forEach(sig => {
-      if (sig.pattern.test(text)) matches++;
-    });
+    let result: RubricEvaluation;
 
-    const result = rubric.evaluate(matches);
+    try {
+      const response = await fetch("/api/evaluate-prompt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          promptText: text,
+          rubricId: rubricId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Ensure data has the correct fields
+      result = {
+        score: typeof data.score === "number" ? data.score : 0,
+        status: data.status || "fail",
+        feedback: data.feedback || "Error en la evaluación del prompt.",
+        dialogue: data.dialogue || "...",
+        emotion: data.emotion || "neutral",
+        effects: data.effects || { reputation: 0, skill: 0, risk: 0 },
+        matchedSignals: Array.isArray(data.matchedSignals) ? data.matchedSignals : []
+      };
+    } catch (err) {
+      console.error("Failed to evaluate prompt via API, falling back to local:", err);
+      // Local fallback calculation using matches
+      let matches = 0;
+      const matchedSignals: string[] = [];
+      rubric.signals.forEach(sig => {
+        if (sig.pattern.test(text)) {
+          matches++;
+          matchedSignals.push(sig.key);
+        }
+      });
+      result = {
+        ...rubric.evaluate(matches),
+        matchedSignals
+      };
+    }
+
     const { promptResults, decisions, activeDayScenes, currentSceneIndex } = get();
     
     const newResults = { ...promptResults, [rubricId]: result };

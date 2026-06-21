@@ -4,7 +4,7 @@ import { Scene } from "../../game/data/scenes";
 import { promptRubrics } from "../../game/data/rubrics";
 import { PromptRubricTooltip } from "./PromptRubricTooltip";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, HelpCircle, Check, CircleAlert, Sparkles, Terminal } from "lucide-react";
+import { Play, HelpCircle, Check, CircleAlert, Sparkles, Terminal, Loader2 } from "lucide-react";
 
 interface PromptChallengeProps {
   scene: Scene;
@@ -14,6 +14,7 @@ export const PromptChallenge: React.FC<PromptChallengeProps> = ({ scene }) => {
   const { submitPrompt, advanceFromPrompt, promptResults } = useGameStore();
   const [inputText, setInputText] = useState("");
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const [isEvaluating, setIsEvaluating] = useState(false);
 
   const rubricId = scene.rubricId || "";
   const rubric = promptRubrics[rubricId];
@@ -26,12 +27,19 @@ export const PromptChallenge: React.FC<PromptChallengeProps> = ({ scene }) => {
 
   if (!rubric) return null;
 
-  const handleEvaluate = () => {
+  const handleEvaluate = async () => {
     if (inputText.trim().length < 15) {
       alert("Tu prompt es demasiado corto. Escribe una solución detallada antes de evaluarlo.");
       return;
     }
-    submitPrompt(rubricId, inputText);
+    setIsEvaluating(true);
+    try {
+      await submitPrompt(rubricId, inputText);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsEvaluating(false);
+    }
   };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,10 +48,6 @@ export const PromptChallenge: React.FC<PromptChallengeProps> = ({ scene }) => {
     if (val.length <= 1500) {
       setInputText(val);
     }
-  };
-
-  const isSignalMatched = (pattern: RegExp) => {
-    return pattern.test(inputText);
   };
 
   return (
@@ -91,17 +95,21 @@ export const PromptChallenge: React.FC<PromptChallengeProps> = ({ scene }) => {
 
             <div className="flex flex-col gap-2">
               {rubric.signals.map((sig) => {
-                const matched = isSignalMatched(sig.pattern);
+                const matched = result 
+                  ? (result.matchedSignals?.includes(sig.key) ?? false)
+                  : false;
                 return (
                   <div 
                     key={sig.key}
                     className={`flex items-center gap-2 text-xs p-2.5 rounded border transition-all duration-300 ${
                       matched 
                         ? "bg-[#10b981]/5 text-[#10b981] border-[#10b981]/25" 
+                        : result 
+                        ? "bg-[#f43f5e]/5 text-[#f43f5e] border-[#f43f5e]/25"
                         : "bg-white/[0.01] text-[#64748b] border-white/5"
                     }`}
                   >
-                    <span className="font-mono">{matched ? "✅" : "❓"}</span>
+                    <span className="font-mono">{matched ? "✅" : result ? "❌" : "❓"}</span>
                     <span className="font-['Inter']">{sig.label}</span>
                   </div>
                 );
@@ -131,7 +139,7 @@ export const PromptChallenge: React.FC<PromptChallengeProps> = ({ scene }) => {
             <textarea
               value={inputText}
               onChange={handleTextChange}
-              disabled={!!result}
+              disabled={!!result || isEvaluating}
               placeholder="Escribe tu system prompt corporativo estructurado aquí..."
               className="w-full min-h-[200px] p-5 bg-[#090d16]/75 text-[#dfe2ef] font-mono text-xs md:text-sm leading-relaxed resize-none border-none outline-none focus:ring-0 disabled:text-[#64748b] select-text"
             />
@@ -143,11 +151,26 @@ export const PromptChallenge: React.FC<PromptChallengeProps> = ({ scene }) => {
               <motion.button
                 id="btn-submit-prompt"
                 onClick={handleEvaluate}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-                className="w-full flex items-center justify-center gap-2 font-['Outfit'] font-extrabold text-sm tracking-wider uppercase py-3 rounded-lg bg-[#3b82f6] text-white hover:shadow-[0_4px_15px_rgba(59,130,246,0.3)] transition-all duration-200 cursor-pointer"
+                disabled={isEvaluating}
+                whileHover={isEvaluating ? {} : { scale: 1.01 }}
+                whileTap={isEvaluating ? {} : { scale: 0.99 }}
+                className={`w-full flex items-center justify-center gap-2 font-['Outfit'] font-extrabold text-sm tracking-wider uppercase py-3 rounded-lg text-white transition-all duration-200 cursor-pointer ${
+                  isEvaluating 
+                    ? "bg-[#3b82f6]/50 cursor-not-allowed" 
+                    : "bg-[#3b82f6] hover:shadow-[0_4px_15px_rgba(59,130,246,0.3)]"
+                }`}
               >
-                <Sparkles className="w-4 h-4" /> Evaluar Prompt
+                {isEvaluating ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Evaluando...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    Evaluar Prompt
+                  </>
+                )}
               </motion.button>
             ) : (
               <motion.div
