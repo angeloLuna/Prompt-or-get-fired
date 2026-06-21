@@ -16,13 +16,14 @@ export interface GameState {
   isDayRecapOpen: boolean;
   isEndingOpen: boolean;
   activeDayScenes: Scene[];
-  
+
   pendingChoiceEffects: Choice["effects"] | null;
   pendingChoiceNext: string | null;
   pendingChoiceFeedback: string | null;
-  isMuted: boolean;
 
+  isMuted: boolean;
   toggleMute: () => void;
+
   startScope: (scope: "A" | "B" | "C") => void;
   nextScene: () => void;
   submitChoice: (choice: Choice, sceneId: string) => void;
@@ -37,6 +38,11 @@ export interface GameState {
 
 const clamp = (val: number) => Math.min(100, Math.max(0, val));
 
+const getInitialMutedState = () => {
+  if (typeof window === "undefined") return false;
+  return localStorage.getItem("game_audio_muted") === "true";
+};
+
 export const useGameStore = create<GameState>((set, get) => ({
   currentScope: null,
   currentDay: 1,
@@ -50,13 +56,23 @@ export const useGameStore = create<GameState>((set, get) => ({
   isDayRecapOpen: false,
   isEndingOpen: false,
   activeDayScenes: [],
-  
+
   pendingChoiceEffects: null,
   pendingChoiceNext: null,
   pendingChoiceFeedback: null,
-  isMuted: false,
 
-  toggleMute: () => set((state) => ({ isMuted: !state.isMuted })),
+  isMuted: getInitialMutedState(),
+
+  toggleMute: () => {
+    const nextMute = !get().isMuted;
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("game_audio_muted", String(nextMute));
+    }
+
+    set({ isMuted: nextMute });
+  },
+
   startScope: (scope) => {
     const freshDecisions: Record<string, string> = {
       concept1: "No tomado",
@@ -75,7 +91,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       injection: "No tomado",
       guardrails: "No tomado",
       crisis5: "No tomado",
-      prompt4: "No evaluado"
+      prompt4: "No evaluado",
     };
 
     set({
@@ -93,33 +109,34 @@ export const useGameStore = create<GameState>((set, get) => ({
       activeDayScenes: JSON.parse(JSON.stringify(scenesByDay[1])),
       pendingChoiceEffects: null,
       pendingChoiceNext: null,
-      pendingChoiceFeedback: null
+      pendingChoiceFeedback: null,
     });
   },
 
   nextScene: () => {
-    const { activeDayScenes, currentSceneIndex, currentScope, currentDay } = get();
+    const { activeDayScenes, currentSceneIndex, currentScope } = get();
     const scene = activeDayScenes[currentSceneIndex];
+
     if (!scene) return;
 
-    if (scene.type === "choice" || scene.type === "prompt") return; // block linear progression on interactive stages
+    if (scene.type === "choice" || scene.type === "prompt") return;
 
     if (scene.next) {
       if (scene.next === "day1_crisis_redirect") {
         if (currentScope === "A") {
-          // Scope A branches to final crisis directly
-          const merged = activeDayScenes.concat(JSON.parse(JSON.stringify(day1CrisisScenes)));
-          const crisisIntroIdx = merged.findIndex(s => s.id === "crisis_intro");
+          const merged = activeDayScenes.concat(
+            JSON.parse(JSON.stringify(day1CrisisScenes)),
+          );
+          const crisisIntroIdx = merged.findIndex((s) => s.id === "crisis_intro");
+
           set({
             activeDayScenes: merged,
-            currentSceneIndex: crisisIntroIdx
+            currentSceneIndex: crisisIntroIdx,
           });
         } else {
-          // Scope B/C triggers day recap panel
           set({ isDayRecapOpen: true });
         }
       } else if (scene.next === "day1_recap_trigger") {
-        // Ending of Scope A
         set({ isEndingOpen: true });
       } else if (scene.next === "day2_completed_marker") {
         set({ isDayRecapOpen: true });
@@ -134,8 +151,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       } else if (scene.next === "day5_completed_marker") {
         set({ isEndingOpen: true });
       } else {
-        // Standard next ID search
-        const nextIdx = activeDayScenes.findIndex(s => s.id === scene.next);
+        const nextIdx = activeDayScenes.findIndex((s) => s.id === scene.next);
+
         if (nextIdx !== -1) {
           set({ currentSceneIndex: nextIdx });
         }
@@ -147,10 +164,9 @@ export const useGameStore = create<GameState>((set, get) => ({
     const { decisions } = get();
     const isCorrect = choice.effects.skill > 3 ? "Correcto" : "Incorrecto";
     const decisionText = `${choice.text.substring(0, 2)} - ${isCorrect}`;
-    
+
     const newDecisions = { ...decisions };
-    
-    // Map choices to decisions history
+
     if (sceneId === "concept_1_question") newDecisions.concept1 = decisionText;
     else if (sceneId === "concept_2_question") newDecisions.concept2 = decisionText;
     else if (sceneId === "day2_q1") newDecisions.temp = decisionText;
@@ -169,13 +185,20 @@ export const useGameStore = create<GameState>((set, get) => ({
       pendingChoiceEffects: choice.effects,
       pendingChoiceNext: choice.next,
       pendingChoiceFeedback: choice.feedback,
-      decisions: newDecisions
+      decisions: newDecisions,
     });
   },
 
   closeFeedback: () => {
-    const { pendingChoiceEffects, pendingChoiceNext, activeDayScenes, reputation, skill, risk } = get();
-    
+    const {
+      pendingChoiceEffects,
+      pendingChoiceNext,
+      activeDayScenes,
+      reputation,
+      skill,
+      risk,
+    } = get();
+
     let nextRep = reputation;
     let nextSkill = skill;
     let nextRisk = risk;
@@ -192,7 +215,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       risk: nextRisk,
       pendingChoiceEffects: null,
       pendingChoiceNext: null,
-      pendingChoiceFeedback: null
+      pendingChoiceFeedback: null,
     });
 
     if (pendingChoiceNext) {
@@ -213,7 +236,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       } else if (pendingChoiceNext === "day5_completed_marker") {
         set({ isEndingOpen: true });
       } else {
-        const nextIdx = activeDayScenes.findIndex(s => s.id === pendingChoiceNext);
+        const nextIdx = activeDayScenes.findIndex((s) => s.id === pendingChoiceNext);
+
         if (nextIdx !== -1) {
           set({ currentSceneIndex: nextIdx });
         }
@@ -223,6 +247,7 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   submitPrompt: async (rubricId, text) => {
     const rubric = promptRubrics[rubricId];
+
     if (!rubric) return;
 
     let result: RubricEvaluation;
@@ -235,7 +260,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         },
         body: JSON.stringify({
           promptText: text,
-          rubricId: rubricId,
+          rubricId,
         }),
       });
 
@@ -244,8 +269,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       }
 
       const data = await response.json();
-      
-      // Ensure data has the correct fields
+
       result = {
         score: typeof data.score === "number" ? data.score : 0,
         status: data.status || "fail",
@@ -253,60 +277,66 @@ export const useGameStore = create<GameState>((set, get) => ({
         dialogue: data.dialogue || "...",
         emotion: data.emotion || "neutral",
         effects: data.effects || { reputation: 0, skill: 0, risk: 0 },
-        matchedSignals: Array.isArray(data.matchedSignals) ? data.matchedSignals : []
+        matchedSignals: Array.isArray(data.matchedSignals) ? data.matchedSignals : [],
       };
     } catch (err) {
       console.error("Failed to evaluate prompt via API, falling back to local:", err);
-      // Local fallback calculation using matches
+
       let matches = 0;
       const matchedSignals: string[] = [];
-      rubric.signals.forEach(sig => {
+
+      rubric.signals.forEach((sig) => {
         if (sig.pattern.test(text)) {
           matches++;
           matchedSignals.push(sig.key);
         }
       });
+
       result = {
         ...rubric.evaluate(matches),
-        matchedSignals
+        matchedSignals,
       };
     }
 
     const { promptResults, decisions, activeDayScenes, currentSceneIndex } = get();
-    
+
     const newResults = { ...promptResults, [rubricId]: result };
     const newDecisions = { ...decisions };
     const outcomeStr = `${result.status.toUpperCase()} (Score: ${result.score}/10)`;
-    
+
     if (rubricId === "support_summary") newDecisions.prompt1 = outcomeStr;
     else if (rubricId === "improve_bad_prompt") newDecisions.prompt2 = outcomeStr;
     else if (rubricId === "safe_assistant_behavior") newDecisions.prompt3 = outcomeStr;
     else if (rubricId === "incident_postmortem") newDecisions.prompt4 = outcomeStr;
 
     const currentScene = activeDayScenes[currentSceneIndex];
-    
-    // Inject dynamic reaction scene
+
     const reactionSceneId = currentScene.next!;
-    const nextIdx = activeDayScenes.findIndex(s => s.id === reactionSceneId);
-    
+    const nextIdx = activeDayScenes.findIndex((s) => s.id === reactionSceneId);
+
     if (nextIdx !== -1) {
       const nextScenes = [...activeDayScenes];
+
       nextScenes[nextIdx] = {
         id: reactionSceneId,
         character: "senior",
         emotion: result.emotion,
         dialogue: result.dialogue,
         effects: result.effects,
-        next: currentScene.id === "prompt_challenge_1_play" ? "day1_pre_crisis" 
-              : (currentScene.id === "day2_prompt_challenge_play" ? "day2_end_scene" 
-                 : (currentScene.id === "day4_prompt_challenge_play" ? "day4_end_scene" 
-                    : "day5_end_scene"))
+        next:
+          currentScene.id === "prompt_challenge_1_play"
+            ? "day1_pre_crisis"
+            : currentScene.id === "day2_prompt_challenge_play"
+              ? "day2_end_scene"
+              : currentScene.id === "day4_prompt_challenge_play"
+                ? "day4_end_scene"
+                : "day5_end_scene",
       };
-      
+
       set({
         promptResults: newResults,
         decisions: newDecisions,
-        activeDayScenes: nextScenes
+        activeDayScenes: nextScenes,
       });
     }
   },
@@ -314,6 +344,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   advanceFromPrompt: (effects) => {
     const { activeDayScenes, currentSceneIndex, reputation, skill, risk } = get();
     const scene = activeDayScenes[currentSceneIndex];
+
     if (!scene) return;
 
     let nextRep = reputation;
@@ -326,13 +357,14 @@ export const useGameStore = create<GameState>((set, get) => ({
       nextRisk = clamp(risk + (effects.risk || 0));
     }
 
-    const nextIdx = activeDayScenes.findIndex(s => s.id === scene.next);
+    const nextIdx = activeDayScenes.findIndex((s) => s.id === scene.next);
+
     if (nextIdx !== -1) {
       set({
         reputation: nextRep,
         skill: nextSkill,
         risk: nextRisk,
-        currentSceneIndex: nextIdx
+        currentSceneIndex: nextIdx,
       });
     }
   },
@@ -340,27 +372,30 @@ export const useGameStore = create<GameState>((set, get) => ({
   closeRecap: () => {
     const { currentDay, unlockedConcepts } = get();
     const nextDay = currentDay + 1;
-    
+
     const dayConcepts: Record<number, string[]> = {
       1: ["Estructura de prompt", "Ambigüedad", "Hallucinations", "Fuente de verdad"],
       2: ["Estructura + Temperatura", "Consistencia", "Diagnóstico", "Evals antes de Demo"],
       3: ["Evals", "Límites", "Seguridad"],
-      4: ["RAG", "Tool Calling", "Agentes"]
+      4: ["RAG", "Tool Calling", "Agentes"],
     };
 
-    const newConcepts = Array.from(new Set([...unlockedConcepts, ...(dayConcepts[currentDay] || [])]));
+    const newConcepts = Array.from(
+      new Set([...unlockedConcepts, ...(dayConcepts[currentDay] || [])]),
+    );
 
     set({
       currentDay: nextDay,
       currentSceneIndex: 0,
       activeDayScenes: JSON.parse(JSON.stringify(scenesByDay[nextDay])),
       isDayRecapOpen: false,
-      unlockedConcepts: newConcepts
+      unlockedConcepts: newConcepts,
     });
   },
 
   restartCurrentScope: () => {
     const { currentScope } = get();
+
     if (currentScope) {
       get().startScope(currentScope);
     }
@@ -373,16 +408,24 @@ export const useGameStore = create<GameState>((set, get) => ({
       currentSceneIndex: 0,
       activeDayScenes: [],
       isDayRecapOpen: false,
-      isEndingOpen: false
+      isEndingOpen: false,
     });
   },
 
   continueToNextScope: () => {
-    const { currentScope, reputation, skill, risk, unlockedConcepts, decisions, promptResults } = get();
-    
+    const {
+      currentScope,
+      reputation,
+      skill,
+      risk,
+      unlockedConcepts,
+      decisions,
+      promptResults,
+    } = get();
+
     let nextScope: "B" | "C" = "B";
     let nextDay = 2;
-    
+
     if (currentScope === "A") {
       nextScope = "B";
       nextDay = 2;
@@ -391,7 +434,6 @@ export const useGameStore = create<GameState>((set, get) => ({
       nextDay = 4;
     }
 
-    // Keep decisions and carry over stats, but adjust scope setup
     set({
       currentScope: nextScope,
       currentDay: nextDay,
@@ -404,7 +446,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       risk,
       unlockedConcepts,
       decisions,
-      promptResults
+      promptResults,
     });
-  }
+  },
 }));

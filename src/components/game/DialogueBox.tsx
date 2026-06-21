@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useGameStore } from "../../store/useGameStore";
 import { Scene } from "../../game/data/scenes";
 import { ChevronRight } from "lucide-react";
+import { playSfx } from "../../utils/audio";
 
 interface DialogueBoxProps {
   scene: Scene;
@@ -17,11 +18,11 @@ const characters = {
 };
 
 const CHARACTER_VOICES: Record<string, string> = {
-  manager: "CwhRBWXzGAHq8TQ4Fs17", // Roger (Laid-Back, Casual)
-  pm: "FGY2WhTYpPnrIDTdsKH5",      // Laura (Enthusiast, Quirky)
-  senior: "cjVigY5qzO86Huf0OWal",  // Eric (Smooth, Trustworthy)
-  ceo: "pNInz6obpgDQGcFmaJgB",     // Adam (Dominant, Firm)
-  hr: "XrExE9yKIg1WjnnlVkGX"       // Matilda (Knowledgeable, Professional)
+  manager: "CwhRBWXzGAHq8TQ4Fs17",
+  pm: "FGY2WhTYpPnrIDTdsKH5",
+  senior: "cjVigY5qzO86Huf0OWal",
+  ceo: "pNInz6obpgDQGcFmaJgB",
+  hr: "XrExE9yKIg1WjnnlVkGX"
 };
 
 export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange }) => {
@@ -31,17 +32,15 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  
+
   const textRef = useRef("");
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Sync speaking state with typing or audio playback
   useEffect(() => {
     onTypingChange?.(isTyping || isAudioPlaying);
   }, [isTyping, isAudioPlaying, onTypingChange]);
 
-  // Handle mute toggles during playback
   useEffect(() => {
     if (isMuted && audioRef.current) {
       audioRef.current.pause();
@@ -50,31 +49,48 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
     }
   }, [isMuted]);
 
-  // Clean up audio on unmount
   useEffect(() => {
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
+
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
     };
   }, []);
 
-  const charInfo = characters[scene.character] || { name: "Desconocido", color: "#64748b" };
+  const charInfo = characters[scene.character] || {
+    name: "Desconocido",
+    color: "#64748b"
+  };
 
   useEffect(() => {
-    // Stop and clear any active audio immediately (Safe inside useEffect)
+    let cancelled = false;
+
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current = null;
     }
-    
-    // Clear any active typewriter timers immediately
-    if (timerRef.current) clearInterval(timerRef.current);
 
-    // Defer state updates to avoid synchronous setState inside useEffect body
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+
+    setIsAudioPlaying(false);
+
+    playSfx("transition");
+
+    if (scene.type === "choice" || scene.type === "prompt") {
+      playSfx("question");
+    }
+
     const deferTimer = setTimeout(() => {
-      setIsAudioPlaying(false);
+      if (cancelled) return;
+
       setDisplayedText("");
       setIsTyping(true);
       textRef.current = "";
@@ -84,20 +100,37 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
 
       timerRef.current = setInterval(() => {
         if (charIndex < targetText.length) {
-          textRef.current += targetText[charIndex];
+          const currentChar = targetText[charIndex];
+
+          textRef.current += currentChar;
           setDisplayedText(textRef.current);
+
+          if (
+            !isMuted &&
+            charIndex % 3 === 0 &&
+            currentChar.trim() !== ""
+          ) {
+            playSfx("typewriter", scene.character);
+          }
+
           charIndex++;
         } else {
           setIsTyping(false);
-          if (timerRef.current) clearInterval(timerRef.current);
+
+          if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+          }
         }
-      }, 20); // Type speed 20ms per character
+      }, 20);
     }, 0);
 
-    // Fetch and play TTS audio
     const fetchAndPlayAudio = async () => {
+      if (isMuted) return;
+
       try {
         const voiceId = CHARACTER_VOICES[scene.character] || "21m00Tcm4TlvDq8ikWAM";
+
         const response = await fetch("/api/tts", {
           method: "POST",
           headers: {
@@ -109,6 +142,8 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
           })
         });
 
+        if (cancelled) return;
+
         if (!response.ok) {
           const errData = await response.json().catch(() => ({}));
           console.warn("Failed to fetch TTS audio:", response.status, errData);
@@ -116,6 +151,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
         }
 
         const contentType = response.headers.get("content-type") || "";
+
         if (contentType.includes("application/json")) {
           const data = await response.json();
           console.log("TTS Mock Mode:", data.message);
@@ -125,73 +161,93 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
         const blob = await response.blob();
         const audioUrl = URL.createObjectURL(blob);
         const audio = new Audio(audioUrl);
+
         audioRef.current = audio;
 
-        audio.onplay = () => setIsAudioPlaying(true);
+        audio.onplay = () => {
+          if (!cancelled) setIsAudioPlaying(true);
+        };
+
         audio.onended = () => {
-          setIsAudioPlaying(false);
+          if (!cancelled) setIsAudioPlaying(false);
           URL.revokeObjectURL(audioUrl);
         };
+
         audio.onerror = () => {
-          setIsAudioPlaying(false);
+          if (!cancelled) setIsAudioPlaying(false);
           URL.revokeObjectURL(audioUrl);
         };
 
         await audio.play();
       } catch (error) {
-        console.warn("Audio playback error:", error);
-        setIsAudioPlaying(false);
+        if (!cancelled) {
+          console.warn("Audio playback error:", error);
+          setIsAudioPlaying(false);
+        }
       }
     };
 
-    if (!isMuted) {
-      fetchAndPlayAudio();
-    }
+    fetchAndPlayAudio();
 
     return () => {
+      cancelled = true;
+
       clearTimeout(deferTimer);
-      if (timerRef.current) clearInterval(timerRef.current);
+
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+
+      setIsAudioPlaying(false);
     };
-  }, [scene.dialogue, isMuted, scene.character]);
+  }, [scene.id, scene.dialogue, scene.character, scene.type, isMuted]);
 
   const handleBoxClick = () => {
     if (isTyping) {
-      // Skip typewriter animation
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+
       setDisplayedText(scene.dialogue);
       setIsTyping(false);
-    } else {
-      // Trigger next scene transition
-      if (scene.type !== "choice" && scene.type !== "prompt") {
-        if (audioRef.current) {
-          audioRef.current.pause();
-          audioRef.current = null;
-        }
-        setIsAudioPlaying(false);
-        nextScene();
+      return;
+    }
+
+    if (scene.type !== "choice" && scene.type !== "prompt") {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
       }
+
+      setIsAudioPlaying(false);
+      nextScene();
     }
   };
 
   return (
-    <div 
+    <div
       onClick={handleBoxClick}
       className="relative w-full min-h-[140px] bg-[#0f131c]/70 border border-white/5 backdrop-blur-[20px] rounded-xl p-5 md:p-6 cursor-pointer select-none transition-all duration-300 hover:border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
     >
-      {/* Speaker Name Tag */}
-      <div 
+      <div
         className="absolute -top-4 left-6 font-['Outfit'] font-extrabold text-xs px-4 py-1.5 rounded-md border tracking-wider uppercase"
         style={{
           color: charInfo.color,
           borderColor: charInfo.color,
-          backgroundColor: `rgba(15, 19, 28, 0.95)`,
+          backgroundColor: "rgba(15, 19, 28, 0.95)",
           boxShadow: `0 0 10px ${charInfo.color}30`
         }}
       >
         {charInfo.name}
       </div>
 
-      {/* Speaking Soundwave Visualizer */}
       {(isTyping || isAudioPlaying) && (
         <div className="absolute top-4 right-6 flex items-end gap-[3px] h-4">
           <div className="w-[3px] h-2 bg-[#fcd34d] animate-[bounce_0.6s_infinite_alternate]" />
@@ -201,12 +257,10 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ scene, onTypingChange 
         </div>
       )}
 
-      {/* Dialogue Content */}
       <div className="font-['Inter'] text-sm md:text-base leading-relaxed text-[#dfe2ef] pt-2 whitespace-pre-wrap select-text pr-10">
         {displayedText}
       </div>
 
-      {/* Click Indicator */}
       {!isTyping && scene.type !== "choice" && scene.type !== "prompt" && (
         <div className="absolute bottom-4 right-5 flex items-center gap-1 font-mono text-[9px] text-[#64748b] uppercase tracking-widest animate-pulse">
           Siguiente <ChevronRight className="w-3 h-3" />

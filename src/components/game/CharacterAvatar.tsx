@@ -15,14 +15,83 @@ export interface CharacterAvatarProps {
   className?: string;
 }
 
-// Central mapping of characters to their new approved banana SVG sprites
-const characterSprites = {
-  manager: "/characters/banana-manager.svg", // Gerry
-  pm: "/characters/banana-manager.svg",      // Pam (Gerry Manager / PM / Manager use banana-manager.svg)
-  senior: "/characters/banana-senior.svg",    // Sven
-  ceo: "/characters/banana-ceo.svg",          // Don Banano
-  hr: "/characters/banana-hr.svg"            // Helga
+// ---------------------------------------------------------------------------
+// Central sprite maps — mood + speaking variants per character.
+// Priority: isSpeaking → mood → fallback
+// Characters without PNG sets (hr) fall back to their banana SVG.
+// ---------------------------------------------------------------------------
+
+type SpriteMap = Record<string, string>;
+
+const SPRITE_MAPS: Record<string, SpriteMap> = {
+  // PM and Manager share the pm_* PNG set
+  pm: {
+    neutral: "/characters/pm_neutral.png",
+    approving: "/characters/pm_happy.png",
+    excited: "/characters/pm_happy.png",
+    confused: "/characters/pm_worried.png",
+    worried: "/characters/pm_worried.png",
+    smug: "/characters/pm_smug.png",
+    angry: "/characters/pm_angry.png",
+    molesto: "/characters/pm_angry.png",
+    _speaking: "/characters/pm_speaking.png",
+    _fallback: "/characters/pm_neutral.png",
+  },
+  manager: {
+    neutral: "/characters/pm_neutral.png",
+    approving: "/characters/pm_happy.png",
+    excited: "/characters/pm_happy.png",
+    confused: "/characters/pm_worried.png",
+    worried: "/characters/pm_worried.png",
+    smug: "/characters/pm_smug.png",
+    angry: "/characters/pm_angry.png",
+    molesto: "/characters/pm_angry.png",
+    _speaking: "/characters/pm_speaking.png",
+    _fallback: "/characters/pm_neutral.png",
+  },
+  senior: {
+    neutral: "/characters/senior_neutral.png",
+    happy: "/characters/senior_happy.png",
+    approving: "/characters/senior_happy.png",
+    smug: "/characters/senior_smug.png",
+    worried: "/characters/senior_worried.png",
+    confused: "/characters/senior_worried.png",
+    tired: "/characters/senior_tired.png",
+    _speaking: "/characters/senior_speaking.png",
+    _fallback: "/characters/senior_neutral.png",
+  },
+  ceo: {
+    neutral: "/characters/ceo_neutral.png",
+    intense: "/characters/ceo_angry.png",
+    angry: "/characters/ceo_angry.png",
+    happy: "/characters/ceo_happy.png",
+    approving: "/characters/ceo_happy.png",
+    smug: "/characters/ceo_smug.png",
+    worried: "/characters/ceo_worried.png",
+    _speaking: "/characters/ceo_speaking.png",
+    _fallback: "/characters/ceo_neutral.png",
+  },
+  // Characters without PNG sets — single SVG fallback
+  hr: {
+    _fallback: "/characters/banana-hr.svg",
+  },
 };
+
+/**
+ * Resolve the correct sprite path for a character.
+ * Priority:
+ *   1. Speaking variant  (if isSpeaking and _speaking exists)
+ *   2. Mood-matched PNG  (if mood key exists in map)
+ *   3. Fallback sprite   (_fallback key — SVG or neutral PNG)
+ */
+function resolveSprite(characterId: string, mood: string, isSpeaking: boolean): string {
+  const map = SPRITE_MAPS[characterId];
+  if (!map) return "/characters/banana-hr.svg"; // ultimate safety net
+
+  if (isSpeaking && map._speaking) return map._speaking;
+  if (map[mood]) return map[mood];
+  return map._fallback ?? "/characters/banana-hr.svg";
+}
 
 export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
   characterId,
@@ -31,7 +100,7 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
   isActive = true,
   className = ""
 }) => {
-  const spriteSrc = characterSprites[characterId];
+  const spriteSrc = resolveSprite(characterId, mood, isSpeaking);
 
   // Base motion transition configuration
   const getTransition = () => {
@@ -42,7 +111,7 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
         rotate: { repeat: Infinity, duration: 0.45, ease: "easeInOut" as const }
       };
     }
-    
+
     // Slower breathing for idle/tired moods
     const duration = mood === "tired" ? 6 : (mood === "excited" || mood === "excited-comic" ? 2.5 : 4);
     return {
@@ -62,7 +131,7 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
     if (isSpeaking) {
       yVal = [0, -8, 0];
       scaleVal = 1.025;
-      
+
       // Speaking while angry = aggressive tilt
       if (mood === "angry" || mood === "molesto") {
         rotateVal = [-2, 2, -2];
@@ -112,10 +181,10 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
     <motion.div
       key={`${characterId}`}
       initial={{ opacity: 0, scale: 0.9, y: 30 }}
-      animate={{ 
-        opacity: isActive ? 1 : 0.6, 
+      animate={{
+        opacity: isActive ? 1 : 0.6,
         scale: isActive ? 1 : 0.95,
-        y: 0 
+        y: 0
       }}
       exit={{ opacity: 0, scale: 0.9, y: 30 }}
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
@@ -127,9 +196,9 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
         transition={getTransition()}
         className="w-full h-full flex items-center justify-center"
       >
-        <img 
-          src={spriteSrc} 
-          alt={`${characterId} (${mood})`} 
+        <img
+          src={spriteSrc}
+          alt={`${characterId} (${mood})`}
           className="w-full h-full object-contain"
           draggable="false"
         />
